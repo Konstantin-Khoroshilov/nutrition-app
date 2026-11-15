@@ -66,6 +66,13 @@
         Внимание: некоторые показатели отсутствуют.
         Итоги рассчитаны по известным данным и являются приблизительными.
       </p>
+      <div class="diary-clear-actions">
+        <button id="clear-diary-button" class="diary-clear-button" type="button"
+          disabled>
+          Очистить дневник за день
+        </button>
+        <p id="diary-clear-status" role="status" aria-live="polite"></p>
+      </div>
     </section>
     <div id="stickyDailyTotals" class="sticky-daily-totals hidden"
       aria-live="polite"></div>
@@ -168,7 +175,11 @@
     <dialog id="meal-plan-dialog" class="meal-plan-dialog"
       aria-labelledby="meal-plan-dialog-title">
       <h2 id="meal-plan-dialog-title">Выберите меню для плана</h2>
-      <p>Можно выбрать одно, два или три меню. Используются блюда с полным КБЖУ.</p>
+      <p>
+        Можно выбрать одно, два или три меню. Используются блюда с полным КБЖУ.
+        Предложения сохраняются только для выбранного дня; на следующий день
+        загрузите актуальное меню и запросите новый план.
+      </p>
       <fieldset id="meal-plan-menu-options" class="meal-plan-menu-options"></fieldset>
       <p id="meal-plan-dialog-status" class="meal-plan-status" role="status"
         aria-live="polite" aria-busy="false"></p>
@@ -180,13 +191,61 @@
       </div>
     </dialog>
 
-    <section id="meal-plan-results" class="panel meal-plan-results hidden">
-      <h2>Варианты плана питания</h2>
+    <dialog id="meal-plan-results"
+      class="meal-plan-dialog meal-plan-results-dialog"
+      aria-labelledby="meal-plan-results-title">
+      <div class="meal-plan-modal-heading">
+        <h2 id="meal-plan-results-title">Варианты плана питания</h2>
+        <div class="meal-plan-dialog-actions">
+          <button id="new-meal-plan" type="button">Составить новый план</button>
+          <button id="close-meal-plan-results" type="button">Закрыть</button>
+        </div>
+      </div>
       <p id="meal-plan-summary" class="meal-plan-summary"></p>
       <div id="meal-plan-list"></div>
       <p id="meal-plan-result-status" class="meal-plan-status" role="status"
         aria-live="polite"></p>
-    </section>
+    </dialog>
+
+    <dialog id="edit-dish-dialog" class="meal-plan-dialog dish-edit-dialog"
+      aria-labelledby="edit-dish-title">
+      <h2 id="edit-dish-title">Изменить блюдо</h2>
+      <form id="edit-dish-form">
+        <label>
+          Название
+          <input type="text" name="name" maxlength="200" required>
+        </label>
+        <label>
+          Вес порции, г
+          <input type="number" name="portion_weight_g" min="0.1" step="any">
+        </label>
+        <div class="dish-edit-nutrients">
+          <label>
+            Калории, ккал
+            <input type="number" name="calories" min="0" step="any">
+          </label>
+          <label>
+            Белки, г
+            <input type="number" name="protein" min="0" step="any">
+          </label>
+          <label>
+            Жиры, г
+            <input type="number" name="fat" min="0" step="any">
+          </label>
+          <label>
+            Углеводы, г
+            <input type="number" name="carbs" min="0" step="any">
+          </label>
+        </div>
+        <p class="form-hint">Пустое поле означает, что показатель не указан.</p>
+        <p id="edit-dish-status" class="meal-plan-status" role="status"
+          aria-live="polite"></p>
+        <div class="meal-plan-dialog-actions">
+          <button id="cancel-edit-dish" type="button">Отмена</button>
+          <button type="submit">Сохранить</button>
+        </div>
+      </form>
+    </dialog>
 
     <!-- Приёмы пищи -->
     <section class="panel">

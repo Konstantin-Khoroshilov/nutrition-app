@@ -47,6 +47,19 @@ db.exec(`
   );
 `);
 
+db.exec(`
+  CREATE TABLE IF NOT EXISTS dish_nutrition_corrections (
+    normalized_name TEXT NOT NULL,
+    portion_weight_g REAL NOT NULL,
+    calories REAL,
+    protein REAL,
+    fat REAL,
+    carbs REAL,
+    updated_at TEXT NOT NULL,
+    PRIMARY KEY (normalized_name, portion_weight_g)
+  );
+`);
+
 // Текущие цели пользователя
 db.exec(`
   CREATE TABLE IF NOT EXISTS goals (
@@ -84,6 +97,22 @@ db.exec(`
     carbs REAL,
     missing_fields TEXT,
     nutrition_status TEXT NOT NULL DEFAULT 'complete',
+    created_at TEXT NOT NULL
+  );
+`);
+
+const diaryEntryColumns = db.prepare('PRAGMA table_info(diary_entries)').all();
+
+if (!diaryEntryColumns.some(column => column.name === 'meal_plan_date')) {
+  db.exec('ALTER TABLE diary_entries ADD COLUMN meal_plan_date TEXT');
+}
+
+db.exec(`
+  CREATE TABLE IF NOT EXISTS daily_meal_plans (
+    diary_date TEXT PRIMARY KEY,
+    menu_ids TEXT NOT NULL,
+    plan_data TEXT NOT NULL,
+    selected_plan_id INTEGER,
     created_at TEXT NOT NULL
   );
 `);

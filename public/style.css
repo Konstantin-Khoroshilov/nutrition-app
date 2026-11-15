@@ -439,6 +439,36 @@ header p {
     opacity: 0.55;
 }
 
+.diary-clear-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+}
+
+.diary-clear-button {
+    padding: 8px 12px;
+    border: 1px solid #e4c4bf;
+    background: #fff8f6;
+    color: #8d3f35;
+    font-size: 13px;
+}
+
+.diary-clear-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+}
+
+#diary-clear-status {
+    margin: 0;
+    color: var(--ink-muted);
+    font-size: 13px;
+    text-align: right;
+}
+
 .meal-plan-actions {
     display: flex;
     justify-content: flex-start;
@@ -453,6 +483,21 @@ header p {
     border: 1px solid var(--border);
     border-radius: 18px;
     color: var(--ink);
+}
+
+.meal-plan-results-dialog {
+    width: min(960px, calc(100vw - 32px));
+}
+
+.meal-plan-modal-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.meal-plan-modal-heading h2 {
+    margin-bottom: 0;
 }
 
 .meal-plan-dialog::backdrop {
@@ -490,6 +535,39 @@ header p {
     display: flex;
     justify-content: flex-end;
     gap: 10px;
+}
+
+.dish-edit-dialog form {
+    display: grid;
+    gap: 12px;
+}
+
+.dish-edit-dialog label {
+    display: grid;
+    gap: 6px;
+    color: #4a5d53;
+    font-size: 13px;
+    font-weight: 650;
+}
+
+.dish-edit-dialog input {
+    width: 100%;
+    min-height: 42px;
+    padding: 9px 11px;
+    border: 1px solid #dce5dc;
+    border-radius: 10px;
+    background: #fff;
+    color: #263a30;
+}
+
+.dish-edit-nutrients {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.dish-edit-dialog .meal-plan-dialog-actions {
+    margin-top: 6px;
 }
 
 .meal-plan-status {
@@ -937,6 +1015,29 @@ header p {
 
     .meal-plan-dialog {
         padding: 18px;
+    }
+
+    .meal-plan-modal-heading {
+        flex-direction: column;
+    }
+
+    .meal-plan-modal-heading .meal-plan-dialog-actions {
+        width: 100%;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .dish-edit-nutrients {
+        gap: 8px;
+    }
+
+    .diary-clear-actions {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    #diary-clear-status {
+        text-align: left;
     }
 }
 

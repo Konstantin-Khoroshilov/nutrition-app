@@ -60,6 +60,64 @@ function createRequestError(message, statusCode = 400) {
   return error;
 }
 
+function normalizeDishName(name) {
+  return name.trim().replace(/\s+/g, ' ').toLocaleLowerCase('ru-RU');
+}
+
+function invalidateMealPlansForMenu(menuId) {
+  const plans = db.prepare(
+    'SELECT diary_date, menu_ids FROM daily_meal_plans'
+  ).all();
+
+  for (const plan of plans) {
+    if (JSON.parse(plan.menu_ids).includes(menuId)) {
+      db.prepare('DELETE FROM daily_meal_plans WHERE diary_date = ?')
+        .run(plan.diary_date);
+    }
+  }
+}
+
+function applyNutritionCorrections(dishes) {
+  const getCorrection = db.prepare(`
+    SELECT calories, protein, fat, carbs
+    FROM dish_nutrition_corrections
+    WHERE normalized_name = ? AND portion_weight_g = ?
+  `);
+  const nutrients = ['calories', 'protein', 'fat', 'carbs'];
+
+  return dishes.map(dish => {
+    if (dish.portion_weight_g === null) {
+      return dish;
+    }
+
+    const correction = getCorrection.get(
+      normalizeDishName(dish.name),
+      dish.portion_weight_g
+    );
+
+    if (!correction) {
+      return dish;
+    }
+
+    const missingFields = new Set(dish.missing_fields);
+    const corrected = { ...dish };
+
+    for (const nutrient of nutrients) {
+      if (corrected[nutrient] === null && correction[nutrient] !== null) {
+        corrected[nutrient] = correction[nutrient];
+        missingFields.delete(nutrient);
+      }
+    }
+
+    corrected.missing_fields = [...missingFields];
+    corrected.nutrition_status = corrected.missing_fields.length === 0
+      ? 'menu'
+      : 'approximate';
+
+    return corrected;
+  });
+}
+
 function getSelectedPlanMenus(menuIds) {
   if (
     !Array.isArray(menuIds) ||
@@ -120,9 +178,9 @@ function insertDiaryEntry(entry) {
     INSERT INTO diary_entries (
       diary_date, meal_type, dish_name, portion_weight_g,
       calories, protein, fat, carbs, missing_fields,
-      nutrition_status, created_at
+      nutrition_status, created_at, meal_plan_date
     )
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `).run(
     entry.diary_date,
     entry.meal_type,
@@ -134,7 +192,8 @@ function insertDiaryEntry(entry) {
     nutrients.carbs,
     JSON.stringify(missingFields),
     hasMissingData ? 'approximate' : 'complete',
-    new Date().toISOString()
+    new Date().toISOString(),
+    entry.meal_plan_date || null
   );
 
   return Number(result.lastInsertRowid);
@@ -222,12 +281,13 @@ function insertMenuDishes(menuId, dishes) {
 }
 
 function saveRecognizedMenu(name, source, dishes, recognizedAt) {
+  const correctedDishes = applyNutritionCorrections(dishes);
   const existingMenu = db.prepare(
     'SELECT id FROM menus WHERE source = ? ORDER BY id DESC LIMIT 1'
   ).get(source);
 
   if (!existingMenu) {
-    return insertMenu(name, source, dishes, recognizedAt);
+    return insertMenu(name, source, correctedDishes, recognizedAt);
   }
 
   db.exec('BEGIN');
@@ -240,7 +300,8 @@ function saveRecognizedMenu(name, source, dishes, recognizedAt) {
     `).run(name, new Date().toISOString(), recognizedAt, existingMenu.id);
     db.prepare('DELETE FROM menu_dishes WHERE menu_id = ?')
       .run(existingMenu.id);
-    insertMenuDishes(existingMenu.id, dishes);
+    insertMenuDishes(existingMenu.id, correctedDishes);
+    invalidateMealPlansForMenu(existingMenu.id);
     db.exec('COMMIT');
     return existingMenu.id;
   } catch (error) {
@@ -403,10 +464,17 @@ app.delete('/api/menus/source/:source', (req, res) => {
     FROM menu_dishes
     WHERE menu_id IN (SELECT id FROM menus WHERE source = ?)
   `).get(source).count;
+  const activeMenu = db.prepare(
+    'SELECT MAX(id) AS id FROM menus WHERE source = ?'
+  ).get(source);
 
   db.exec('BEGIN');
 
   try {
+    if (activeMenu.id !== null) {
+      invalidateMealPlansForMenu(activeMenu.id);
+    }
+
     db.prepare('DELETE FROM menus WHERE source = ?').run(source);
 
     if (source === 'manual') {
@@ -426,6 +494,31 @@ app.delete('/api/menus/source/:source', (req, res) => {
     success: true,
     deleted_menus: menuCount,
     deleted_dishes: dishCount
+  });
+});
+
+app.get('/api/meal-plans', (req, res) => {
+  const { date } = req.query;
+
+  if (!isValidDate(date)) {
+    return res.status(400).json({
+      error: 'Укажите дату в формате YYYY-MM-DD'
+    });
+  }
+
+  const savedPlan = db.prepare(`
+    SELECT plan_data, selected_plan_id
+    FROM daily_meal_plans
+    WHERE diary_date = ?
+  `).get(date);
+
+  res.json({
+    plan: savedPlan
+      ? {
+          ...JSON.parse(savedPlan.plan_data),
+          selected_plan_id: savedPlan.selected_plan_id
+        }
+      : null
   });
 });
 
@@ -500,7 +593,7 @@ app.post('/api/meal-plans', async (req, res) => {
       tolerancePercent: mealPlanTolerancePercent
     });
 
-    res.json({
+    const planData = {
       date,
       menu_ids: menuIds,
       menu_names: selectedMenus.map(menu => menu.name),
@@ -508,7 +601,26 @@ app.post('/api/meal-plans', async (req, res) => {
       tolerance_percent: mealPlanTolerancePercent,
       excluded_dish_count: allDishes.length - eligibleDishes.length,
       plans
-    });
+    };
+
+    db.prepare(`
+      INSERT INTO daily_meal_plans (
+        diary_date, menu_ids, plan_data, selected_plan_id, created_at
+      )
+      VALUES (?, ?, ?, NULL, ?)
+      ON CONFLICT(diary_date) DO UPDATE SET
+        menu_ids = excluded.menu_ids,
+        plan_data = excluded.plan_data,
+        selected_plan_id = NULL,
+        created_at = excluded.created_at
+    `).run(
+      date,
+      JSON.stringify(menuIds),
+      JSON.stringify(planData),
+      new Date().toISOString()
+    );
+
+    res.json({ ...planData, selected_plan_id: null });
   } catch (error) {
     console.error('Ошибка составления плана питания:', error);
     res.status(error.statusCode || 500).json({
@@ -671,6 +783,134 @@ app.post('/api/menus/:id/dishes', (req, res) => {
   res.status(201).json(getMenu(menuId));
 });
 
+app.put('/api/menus/:menuId/dishes/:dishId', (req, res) => {
+  const menuId = Number(req.params.menuId);
+  const dishId = Number(req.params.dishId);
+
+  if (
+    !Number.isInteger(menuId) ||
+    menuId <= 0 ||
+    !Number.isInteger(dishId) ||
+    dishId <= 0
+  ) {
+    return res.status(400).json({ error: 'Некорректный ID меню или блюда' });
+  }
+
+  const dish = db.prepare(`
+    SELECT id
+    FROM menu_dishes
+    WHERE id = ? AND menu_id = ?
+  `).get(dishId, menuId);
+
+  if (!dish) {
+    return res.status(404).json({ error: 'Блюдо не найдено в этом меню' });
+  }
+
+  const { name, portion_weight_g, calories, protein, fat, carbs } =
+    req.body || {};
+  const normalizedName = typeof name === 'string' ? name.trim() : '';
+
+  if (!normalizedName || normalizedName.length > 200) {
+    return res.status(400).json({
+      error: 'Укажите название блюда (не более 200 символов)'
+    });
+  }
+
+  if (
+    portion_weight_g !== null &&
+    (typeof portion_weight_g !== 'number' ||
+      !Number.isFinite(portion_weight_g) ||
+      portion_weight_g <= 0)
+  ) {
+    return res.status(400).json({
+      error: 'Вес порции должен быть больше нуля или оставлен пустым'
+    });
+  }
+
+  const nutrients = { calories, protein, fat, carbs };
+
+  for (const [nutrient, value] of Object.entries(nutrients)) {
+    if (
+      value !== null &&
+      (typeof value !== 'number' || !Number.isFinite(value) || value < 0)
+    ) {
+      return res.status(400).json({
+        error: `Укажите корректное значение показателя «${nutrient}»`
+      });
+    }
+  }
+
+  const missingFields = [];
+
+  if (portion_weight_g === null) {
+    missingFields.push('portion_weight_g');
+  }
+
+  for (const [nutrient, value] of Object.entries(nutrients)) {
+    if (value === null) {
+      missingFields.push(nutrient);
+    }
+  }
+
+  const nutritionStatus = missingFields.length > 0
+    ? 'approximate'
+    : 'manual';
+
+  db.exec('BEGIN');
+
+  try {
+    db.prepare(`
+      UPDATE menu_dishes
+      SET name = ?, portion_weight_g = ?, calories = ?, protein = ?,
+        fat = ?, carbs = ?, nutrition_status = ?, missing_fields = ?
+      WHERE id = ? AND menu_id = ?
+    `).run(
+      normalizedName,
+      portion_weight_g,
+      calories,
+      protein,
+      fat,
+      carbs,
+      nutritionStatus,
+      JSON.stringify(missingFields),
+      dishId,
+      menuId
+    );
+
+    if (portion_weight_g !== null) {
+      db.prepare(`
+        INSERT INTO dish_nutrition_corrections (
+          normalized_name, portion_weight_g, calories, protein, fat, carbs,
+          updated_at
+        )
+        VALUES (?, ?, ?, ?, ?, ?, ?)
+        ON CONFLICT(normalized_name, portion_weight_g) DO UPDATE SET
+          calories = COALESCE(excluded.calories, calories),
+          protein = COALESCE(excluded.protein, protein),
+          fat = COALESCE(excluded.fat, fat),
+          carbs = COALESCE(excluded.carbs, carbs),
+          updated_at = excluded.updated_at
+      `).run(
+        normalizeDishName(normalizedName),
+        portion_weight_g,
+        calories,
+        protein,
+        fat,
+        carbs,
+        new Date().toISOString()
+      );
+    }
+
+    invalidateMealPlansForMenu(menuId);
+    db.exec('COMMIT');
+  } catch (error) {
+    db.exec('ROLLBACK');
+    throw error;
+  }
+
+  res.json(getMenu(menuId));
+});
+
 app.delete('/api/menus/:menuId/dishes/:dishId', (req, res) => {
   const menuId = Number(req.params.menuId);
   const dishId = Number(req.params.dishId);
@@ -697,6 +937,8 @@ app.delete('/api/menus/:menuId/dishes/:dishId', (req, res) => {
       error: 'Удалять блюда можно только из «Моего меню»'
     });
   }
+
+  invalidateMealPlansForMenu(menuId);
 
   const result = db.prepare(`
     DELETE FROM menu_dishes
@@ -788,6 +1030,8 @@ app.put('/api/goals', (req, res) => {
         fat = excluded.fat,
         carbs = excluded.carbs
     `).run(diary_date, calories, protein, fat, carbs);
+    db.prepare('DELETE FROM daily_meal_plans WHERE diary_date = ?')
+      .run(diary_date);
   }
 
   res.json({
@@ -846,31 +1090,43 @@ app.get('/api/diary', (req, res) => {
   });
 });
 
-// Добавление блюда в дневник
+// Замена выбранного плана питания в дневнике
 app.post('/api/meal-plans/apply', (req, res) => {
-  const { date, menu_ids: menuIds, entries } = req.body || {};
+  const { date, plan_id: planId } = req.body || {};
 
   if (!isValidDate(date)) {
     return res.status(400).json({ error: 'Некорректная дата плана' });
   }
 
-  let selectedMenus;
+  if (!Number.isInteger(planId) || planId < 1) {
+    return res.status(400).json({ error: 'Некорректный вариант плана' });
+  }
 
-  try {
-    selectedMenus = getSelectedPlanMenus(menuIds);
-  } catch (error) {
-    return res.status(error.statusCode || 400).json({
-      error: error.message
+  const savedPlan = db.prepare(`
+    SELECT plan_data, selected_plan_id
+    FROM daily_meal_plans
+    WHERE diary_date = ?
+  `).get(date);
+
+  if (!savedPlan) {
+    return res.status(404).json({
+      error: 'План на эту дату не найден. Составьте новые рекомендации.'
     });
   }
 
-  if (
-    !Array.isArray(entries) ||
-    entries.length === 0 ||
-    entries.length > 40
-  ) {
-    return res.status(400).json({
-      error: 'В плане должно быть от одного до 40 блюд'
+  const planData = JSON.parse(savedPlan.plan_data);
+  const plan = planData.plans.find(candidate => candidate.id === planId);
+
+  if (!plan) {
+    return res.status(404).json({ error: 'Выбранный вариант плана не найден' });
+  }
+
+  let selectedMenus;
+  try {
+    selectedMenus = getSelectedPlanMenus(planData.menu_ids);
+  } catch (error) {
+    return res.status(error.statusCode || 400).json({
+      error: error.message
     });
   }
 
@@ -883,43 +1139,69 @@ app.post('/api/meal-plans/apply', (req, res) => {
   `);
   const preparedEntries = [];
 
-  for (const entry of entries) {
-    if (
-      !entry ||
-      !Number.isInteger(entry.dish_id) ||
-      entry.dish_id <= 0 ||
-      !mealTypes.includes(entry.meal_type) ||
-      ![1, 2].includes(entry.servings)
-    ) {
-      return res.status(400).json({
-        error: 'В плане есть некорректное блюдо, приём пищи или число порций'
-      });
+  for (const [mealType, dishes] of Object.entries(plan.meals)) {
+    if (!mealTypes.includes(mealType) || !Array.isArray(dishes)) {
+      return res.status(409).json({ error: 'Сохранённый план повреждён' });
     }
 
-    const dish = getDish.get(entry.dish_id);
+    for (const plannedDish of dishes) {
+      if (
+        !Number.isInteger(plannedDish.dish_id) ||
+        ![1, 2].includes(plannedDish.servings)
+      ) {
+        return res.status(409).json({ error: 'Сохранённый план повреждён' });
+      }
 
-    if (!dish || !selectedMenuIds.has(dish.menu_id)) {
-      return res.status(409).json({
-        error: 'Одно из блюд больше не доступно в выбранных меню'
+      const dish = getDish.get(plannedDish.dish_id);
+
+      if (!dish || !selectedMenuIds.has(dish.menu_id)) {
+        return res.status(409).json({
+          error: 'Одно из блюд больше не доступно в выбранных меню. Составьте новый план.'
+        });
+      }
+
+      if (
+        !hasCompleteNutrition(dish) ||
+        dish.name !== plannedDish.name ||
+        dish.portion_weight_g * plannedDish.servings !==
+          plannedDish.portion_weight_g ||
+        ['calories', 'protein', 'fat', 'carbs'].some(nutrient =>
+          dish[nutrient] * plannedDish.servings !== plannedDish[nutrient]
+        )
+      ) {
+        return res.status(409).json({
+          error: `Данные блюда «${dish.name}» изменились. Составьте новый план.`
+        });
+      }
+
+      preparedEntries.push({
+        dish,
+        meal_type: mealType,
+        servings: plannedDish.servings
       });
     }
+  }
 
-    if (!hasCompleteNutrition(dish)) {
-      return res.status(409).json({
-        error: `У блюда «${dish.name}» больше нет полного КБЖУ`
-      });
-    }
+  if (preparedEntries.length === 0 || preparedEntries.length > 40) {
+    return res.status(409).json({ error: 'Сохранённый план повреждён' });
+  }
 
-    preparedEntries.push({
-      dish,
-      meal_type: entry.meal_type,
-      servings: entry.servings
+  if (savedPlan.selected_plan_id === planId) {
+    return res.json({
+      success: true,
+      selected_plan_id: planId,
+      date
     });
   }
 
   db.exec('BEGIN');
 
   try {
+    db.prepare(`
+      DELETE FROM diary_entries
+      WHERE diary_date = ? AND meal_plan_date = ?
+    `).run(date, date);
+
     for (const { dish, meal_type, servings } of preparedEntries) {
       insertDiaryEntry({
         diary_date: date,
@@ -932,9 +1214,16 @@ app.post('/api/meal-plans/apply', (req, res) => {
         protein: dish.protein * servings,
         fat: dish.fat * servings,
         carbs: dish.carbs * servings,
-        missing_fields: []
+        missing_fields: [],
+        meal_plan_date: date
       });
     }
+
+    db.prepare(`
+      UPDATE daily_meal_plans
+      SET selected_plan_id = ?
+      WHERE diary_date = ?
+    `).run(planId, date);
 
     db.exec('COMMIT');
   } catch (error) {
@@ -945,6 +1234,7 @@ app.post('/api/meal-plans/apply', (req, res) => {
   res.status(201).json({
     success: true,
     entries_added: preparedEntries.length,
+    selected_plan_id: planId,
     date
   });
 });
@@ -1034,6 +1324,39 @@ app.post('/api/diary/entries', (req, res) => {
   });
 });
 
+app.delete('/api/diary', (req, res) => {
+  const { date } = req.query;
+
+  if (!isValidDate(date)) {
+    return res.status(400).json({
+      error: 'Укажите дату в формате YYYY-MM-DD'
+    });
+  }
+
+  db.exec('BEGIN');
+
+  try {
+    const result = db.prepare(
+      'DELETE FROM diary_entries WHERE diary_date = ?'
+    ).run(date);
+    db.prepare(`
+      UPDATE daily_meal_plans
+      SET selected_plan_id = NULL
+      WHERE diary_date = ?
+    `).run(date);
+    db.exec('COMMIT');
+
+    res.json({
+      success: true,
+      date,
+      deleted_entries: result.changes
+    });
+  } catch (error) {
+    db.exec('ROLLBACK');
+    throw error;
+  }
+});
+
 // Удаление блюда из дневника
 app.delete('/api/diary/entries/:id', (req, res) => {
   const id = Number(req.params.id);
@@ -1044,6 +1367,12 @@ app.delete('/api/diary/entries/:id', (req, res) => {
     });
   }
 
+  const entry = db.prepare(`
+    SELECT diary_date, meal_plan_date
+    FROM diary_entries
+    WHERE id = ?
+  `).get(id);
+
   const result = db.prepare(
     'DELETE FROM diary_entries WHERE id = ?'
   ).run(id);
@@ -1052,6 +1381,14 @@ app.delete('/api/diary/entries/:id', (req, res) => {
     return res.status(404).json({
       error: 'Запись не найдена'
     });
+  }
+
+  if (entry?.meal_plan_date) {
+    db.prepare(`
+      UPDATE daily_meal_plans
+      SET selected_plan_id = NULL
+      WHERE diary_date = ?
+    `).run(entry.diary_date);
   }
 
   res.json({ success: true });
@@ -1064,6 +1401,10 @@ db.prepare(`
   WHERE source = 'saved'
 `).run();
 
-app.listen(PORT, () => {
-  console.log(`Приложение запущено: http://localhost:${PORT}`);
-});
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Приложение запущено: http://localhost:${PORT}`);
+  });
+}
+
+module.exports = app;

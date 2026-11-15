@@ -12,14 +12,20 @@ const mealPlanMenuOptions = document.getElementById('meal-plan-menu-options');
 const mealPlanDialogStatus = document.getElementById('meal-plan-dialog-status');
 const generateMealPlanButton = document.getElementById('generate-meal-plan');
 const mealPlanResults = document.getElementById('meal-plan-results');
+const newMealPlanButton = document.getElementById('new-meal-plan');
 const mealPlanSummary = document.getElementById('meal-plan-summary');
 const mealPlanList = document.getElementById('meal-plan-list');
 const mealPlanResultStatus = document.getElementById('meal-plan-result-status');
+const editDishDialog = document.getElementById('edit-dish-dialog');
+const editDishForm = document.getElementById('edit-dish-form');
+const editDishStatus = document.getElementById('edit-dish-status');
 const manualMenuPanel = document.getElementById('manual-menu-panel');
 const manualDishForm = document.getElementById('manual-dish-form');
 const mealsElement = document.getElementById('meals');
 const totalsElement = document.getElementById('totals');
 const warningElement = document.getElementById('approximateWarning');
+const clearDiaryButton = document.getElementById('clear-diary-button');
+const clearDiaryStatus = document.getElementById('diary-clear-status');
 const dailyTotalsPanel = document.getElementById('dailyTotalsPanel');
 const stickyDailyTotals = document.getElementById('stickyDailyTotals');
 
@@ -52,9 +58,10 @@ let menuLoading = false;
 let menuProcessing = false;
 let mealPlanGenerating = false;
 let mealPlanApplying = false;
+let mealPlanLoadToken = 0;
 let menuLoadToken = 0;
 let generatedMealPlan = null;
-let appliedMealPlanId = null;
+let editingMenuDish = null;
 let activeMenuName;
 let activeMenuDate;
 let catalogElement;
@@ -62,6 +69,8 @@ let searchInput;
 let searchCount;
 let catalogList;
 let dailyTotalsReady = false;
+let diaryEntriesCount = 0;
+let diaryClearing = false;
 
 function setMenuStatus(message, isLoading = false) {
     menuStatus.textContent = message;
@@ -73,12 +82,30 @@ function updateMenuActionState() {
     const actionsDisabled = menuProcessing || mealPlanGenerating ||
         mealPlanApplying;
 
+    dateInput.disabled = actionsDisabled;
+    previousDayButton.disabled = actionsDisabled;
+    nextDayButton.disabled = actionsDisabled;
     document.querySelectorAll('[data-menu-mode]').forEach(button => {
         button.disabled = actionsDisabled;
     });
     clearMenuButton.disabled = actionsDisabled || menuLoading || !currentMenu;
     openMealPlanButton.disabled = actionsDisabled ||
         !menus.some(menu => Number(menu.dish_count) > 0);
+    updateClearDiaryButton();
+}
+
+function updateClearDiaryButton() {
+    clearDiaryButton.disabled = diaryEntriesCount === 0 ||
+        diaryClearing || menuProcessing || mealPlanGenerating ||
+        mealPlanApplying;
+}
+
+function updateMealPlanButton() {
+    const hasPlanForDate = generatedMealPlan &&
+        generatedMealPlan.date === dateInput.value;
+    openMealPlanButton.textContent = hasPlanForDate
+        ? 'План питания на этот день'
+        : 'Составить план';
 }
 
 function setMenuProcessing(isProcessing) {
@@ -400,21 +427,68 @@ function updateMealPlanGenerateButton() {
 
 function clearMealPlanResults() {
     generatedMealPlan = null;
-    appliedMealPlanId = null;
     mealPlanList.replaceChildren();
-    mealPlanResults.classList.add('hidden');
+    if (mealPlanResults.open) {
+        mealPlanResults.close();
+    }
     mealPlanSummary.textContent = '';
     setMealPlanStatus(mealPlanResultStatus, '');
+    updateMealPlanButton();
 }
 
-function openMealPlanChooser() {
+async function loadMealPlanForDate(date) {
+    const loadToken = ++mealPlanLoadToken;
+
+    if (generatedMealPlan?.date !== date && mealPlanResults.open) {
+        mealPlanResults.close();
+    }
+
+    generatedMealPlan = null;
+    updateMealPlanButton();
+
+    try {
+        const response = await fetch(
+            `/api/meal-plans?date=${encodeURIComponent(date)}`
+        );
+        const result = await response.json();
+
+        if (!response.ok) {
+            throw new Error(result.error || 'Не удалось загрузить план дня');
+        }
+
+        if (loadToken !== mealPlanLoadToken || dateInput.value !== date) {
+            return;
+        }
+
+        generatedMealPlan = result.plan;
+        updateMealPlanButton();
+        if (mealPlanResults.open && generatedMealPlan) {
+            renderMealPlans(generatedMealPlan);
+        }
+    } catch (error) {
+        if (loadToken === mealPlanLoadToken) {
+            setMenuStatus(`Не удалось загрузить план дня: ${error.message}`);
+        }
+    }
+}
+
+function openMealPlanChooser(forceNew = false) {
+    if (
+        !forceNew &&
+        generatedMealPlan &&
+        generatedMealPlan.date === dateInput.value
+    ) {
+        renderMealPlans(generatedMealPlan);
+        mealPlanResults.showModal();
+        return;
+    }
+
     const availableMenus = menus.filter(menu => Number(menu.dish_count) > 0);
 
     if (availableMenus.length === 0) {
         return;
     }
 
-    clearMealPlanResults();
     mealPlanMenuOptions.replaceChildren();
     setMealPlanStatus(mealPlanDialogStatus, '');
 
@@ -554,8 +628,13 @@ function createMealPlanCard(plan, planData) {
     const applyButton = document.createElement('button');
     applyButton.type = 'button';
     applyButton.className = 'meal-plan-apply';
-    applyButton.textContent = 'Добавить вариант в дневник';
-    applyButton.disabled = appliedMealPlanId !== null;
+    const isSelectedPlan = planData.selected_plan_id === plan.id;
+    applyButton.textContent = isSelectedPlan
+        ? 'Этот план уже в дневнике'
+        : planData.selected_plan_id
+            ? 'Заменить план в дневнике'
+            : 'Добавить вариант в дневник';
+    applyButton.disabled = isSelectedPlan || mealPlanApplying;
     applyButton.addEventListener('click', () =>
         applyMealPlan(plan, planData)
     );
@@ -566,7 +645,6 @@ function createMealPlanCard(plan, planData) {
 
 function renderMealPlans(planData) {
     generatedMealPlan = planData;
-    appliedMealPlanId = null;
     mealPlanList.replaceChildren();
 
     const sourceList = planData.menu_names.join(', ');
@@ -580,7 +658,7 @@ function renderMealPlans(planData) {
         mealPlanList.appendChild(createMealPlanCard(plan, planData));
     }
 
-    mealPlanResults.classList.remove('hidden');
+    updateMealPlanButton();
 }
 
 async function generateMealPlan() {
@@ -625,7 +703,7 @@ async function generateMealPlan() {
 
         mealPlanDialog.close();
         renderMealPlans(result);
-        mealPlanResults.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        mealPlanResults.showModal();
     } catch (error) {
         setMealPlanStatus(mealPlanDialogStatus, error.message);
     } finally {
@@ -640,17 +718,9 @@ async function generateMealPlan() {
 }
 
 async function applyMealPlan(plan, planData) {
-    if (mealPlanApplying || appliedMealPlanId !== null) {
+    if (mealPlanApplying || planData.selected_plan_id === plan.id) {
         return;
     }
-
-    const entries = Object.entries(plan.meals).flatMap(([mealType, dishes]) =>
-        dishes.map(dish => ({
-            dish_id: dish.dish_id,
-            meal_type: mealType,
-            servings: dish.servings
-        }))
-    );
 
     mealPlanApplying = true;
     mealPlanList.querySelectorAll('.meal-plan-apply').forEach(button => {
@@ -665,8 +735,7 @@ async function applyMealPlan(plan, planData) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 date: planData.date,
-                menu_ids: planData.menu_ids,
-                entries
+                plan_id: plan.id
             })
         });
         const result = await response.json();
@@ -675,24 +744,24 @@ async function applyMealPlan(plan, planData) {
             throw new Error(result.error || 'Не удалось добавить план в дневник');
         }
 
-        appliedMealPlanId = plan.id;
+        planData.selected_plan_id = plan.id;
+        generatedMealPlan = planData;
         dateInput.value = planData.date;
+        renderMealPlans(planData);
         await loadDiary();
-        mealPlanList.querySelectorAll('.meal-plan-apply').forEach(button => {
-            button.disabled = true;
-        });
         setMealPlanStatus(
             mealPlanResultStatus,
-            `План добавлен в дневник за ${planData.date}.`
+            `План выбран и сохранён в дневнике за ${planData.date}.`
         );
     } catch (error) {
-        mealPlanList.querySelectorAll('.meal-plan-apply').forEach(button => {
-            button.disabled = appliedMealPlanId !== null;
-        });
+        renderMealPlans(planData);
         setMealPlanStatus(mealPlanResultStatus, error.message);
     } finally {
         mealPlanApplying = false;
         updateMenuActionState();
+        if (generatedMealPlan?.date === planData.date) {
+            renderMealPlans(generatedMealPlan);
+        }
     }
 }
 
@@ -782,14 +851,78 @@ document.querySelectorAll('[data-menu-mode]').forEach(button => {
 });
 
 clearMenuButton.addEventListener('click', clearActiveMenu);
-openMealPlanButton.addEventListener('click', openMealPlanChooser);
+openMealPlanButton.addEventListener('click', () => openMealPlanChooser());
 generateMealPlanButton.addEventListener('click', generateMealPlan);
 document.getElementById('cancel-meal-plan').addEventListener('click', () => {
     mealPlanDialog.close();
 });
+document.getElementById('close-meal-plan-results')
+    .addEventListener('click', () => mealPlanResults.close());
+newMealPlanButton.addEventListener('click', () => {
+    mealPlanResults.close();
+    openMealPlanChooser(true);
+});
+document.getElementById('cancel-edit-dish')
+    .addEventListener('click', () => editDishDialog.close());
 mealPlanDialog.addEventListener('cancel', event => {
     if (mealPlanGenerating) {
         event.preventDefault();
+    }
+});
+editDishForm.addEventListener('submit', async event => {
+    event.preventDefault();
+
+    if (!editingMenuDish) {
+        return;
+    }
+
+    const form = event.currentTarget;
+    const fields = new FormData(form);
+    const getOptionalNumber = field => {
+        const value = fields.get(field);
+        return value === '' ? null : Number(value);
+    };
+    const updatedDish = {
+        name: fields.get('name'),
+        portion_weight_g: getOptionalNumber('portion_weight_g'),
+        calories: getOptionalNumber('calories'),
+        protein: getOptionalNumber('protein'),
+        fat: getOptionalNumber('fat'),
+        carbs: getOptionalNumber('carbs')
+    };
+    const submitButton = form.querySelector('button[type="submit"]');
+    submitButton.disabled = true;
+    setMenuProcessing(true);
+    setMealPlanStatus(editDishStatus, 'Сохраняем изменения...', true);
+
+    try {
+        const response = await fetch(
+            `/api/menus/${editingMenuDish.menuId}/dishes/${editingMenuDish.dishId}`,
+            {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(updatedDish)
+            }
+        );
+        const result = await response.json();
+
+        if (!response.ok) {
+            throw new Error(result.error || 'Не удалось сохранить блюдо');
+        }
+
+        const savedName = result.dishes.find(dish =>
+            dish.id === editingMenuDish.dishId
+        )?.name || updatedDish.name;
+        editDishDialog.close();
+        editingMenuDish = null;
+        await loadMenus();
+        clearMealPlanResults();
+        setMenuStatus(`Изменения блюда «${savedName}» сохранены.`);
+    } catch (error) {
+        setMealPlanStatus(editDishStatus, error.message);
+    } finally {
+        submitButton.disabled = false;
+        setMenuProcessing(false);
     }
 });
 
@@ -867,7 +1000,6 @@ manualDishForm.addEventListener('submit', async event => {
 
         form.reset();
         await loadMenus();
-        clearMealPlanResults();
         setMenuStatus(`Блюдо «${dish.name}» добавлено в меню.`);
     } catch (error) {
         setMenuStatus(error.message);
@@ -898,6 +1030,30 @@ async function deleteMenuDish(menuId, dish) {
     } catch (error) {
         setMenuStatus(error.message);
     }
+}
+
+function openDishEditDialog(menu, dish) {
+    if (!menu || menuProcessing || menuLoading) {
+        return;
+    }
+
+    editingMenuDish = { menuId: menu.id, dishId: dish.id };
+    editDishForm.elements.namedItem('name').value = dish.name;
+
+    for (const field of [
+        'portion_weight_g',
+        'calories',
+        'protein',
+        'fat',
+        'carbs'
+    ]) {
+        const value = dish[field];
+        editDishForm.elements.namedItem(field).value =
+            value === null || value === undefined ? '' : String(value);
+    }
+
+    setMealPlanStatus(editDishStatus, '');
+    editDishDialog.showModal();
 }
 
 async function clearActiveMenu() {
@@ -1073,6 +1229,16 @@ function renderCatalog() {
         controls.appendChild(mealSelect);
         controls.appendChild(addButton);
 
+        const editButton = document.createElement('button');
+        editButton.type = 'button';
+        editButton.className = 'edit-menu-dish';
+        editButton.textContent = 'Изменить';
+        editButton.setAttribute('aria-label', `Изменить ${dish.name}`);
+        editButton.addEventListener('click', () =>
+            openDishEditDialog(activeMenu, dish)
+        );
+        controls.appendChild(editButton);
+
         if (activeMenu?.source === 'manual') {
             const removeButton = document.createElement('button');
             removeButton.type = 'button';
@@ -1101,6 +1267,18 @@ async function loadDiary() {
 
     if (!date) return;
 
+    diaryEntriesCount = 0;
+    clearDiaryStatus.textContent = '';
+    updateClearDiaryButton();
+
+    if (generatedMealPlan?.date !== date) {
+        generatedMealPlan = null;
+        if (mealPlanResults.open) {
+            mealPlanResults.close();
+        }
+        updateMealPlanButton();
+    }
+
     dailyTotalsReady = false;
     stickyDailyTotals.classList.add('hidden');
     mealsElement.textContent = 'Загрузка...';
@@ -1118,6 +1296,7 @@ async function loadDiary() {
 
         renderMeals(data.entries);
         renderTotals(data.totals, data.goals, data.approximate);
+        await loadMealPlanForDate(date);
 
     } catch (error) {
         mealsElement.textContent = error.message;
@@ -1127,6 +1306,8 @@ async function loadDiary() {
 // Отображаем приёмы пищи
 
 function renderMeals(entries) {
+    diaryEntriesCount = entries.length;
+    updateClearDiaryButton();
     mealsElement.innerHTML = '';
 
     for (const [mealType, mealName] of Object.entries(mealNames)) {
@@ -1347,6 +1528,46 @@ async function addDish(mealType, dish, quantity = 1) {
 }
 
 
+async function clearDiaryForDate() {
+    const date = dateInput.value;
+
+    if (!date || diaryEntriesCount === 0 || diaryClearing) {
+        return;
+    }
+
+    if (!window.confirm(
+        `Удалить все блюда из дневника за ${date}? ` +
+        'Дневники за другие даты, меню и цели останутся.'
+    )) {
+        return;
+    }
+
+    diaryClearing = true;
+    updateClearDiaryButton();
+    clearDiaryStatus.textContent = 'Очищаем дневник...';
+
+    try {
+        const response = await fetch(
+            `/api/diary?date=${encodeURIComponent(date)}`,
+            { method: 'DELETE' }
+        );
+        const result = await response.json();
+
+        if (!response.ok) {
+            throw new Error(result.error || 'Не удалось очистить дневник');
+        }
+
+        await loadDiary();
+        clearDiaryStatus.textContent =
+            `Дневник за ${date} очищен. Удалено записей: ${result.deleted_entries}.`;
+    } catch (error) {
+        clearDiaryStatus.textContent = error.message;
+    } finally {
+        diaryClearing = false;
+        updateClearDiaryButton();
+    }
+}
+
 // Удаляем блюдо
 async function deleteEntry(id) {
     try {
@@ -1371,6 +1592,7 @@ async function deleteEntry(id) {
 dateInput.addEventListener('change', loadDiary);
 previousDayButton.addEventListener('click', () => changeDiaryDate(-1));
 nextDayButton.addEventListener('click', () => changeDiaryDate(1));
+clearDiaryButton.addEventListener('click', clearDiaryForDate);
 
 // Запускаем приложение
 async function init() {
