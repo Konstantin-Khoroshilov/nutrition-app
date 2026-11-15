@@ -6,6 +6,15 @@ const previousDayButton = document.getElementById('previousDay');
 const nextDayButton = document.getElementById('nextDay');
 const menuStatus = document.getElementById('menuStatus');
 const clearMenuButton = document.getElementById('clear-menu-button');
+const openMealPlanButton = document.getElementById('open-meal-plan');
+const mealPlanDialog = document.getElementById('meal-plan-dialog');
+const mealPlanMenuOptions = document.getElementById('meal-plan-menu-options');
+const mealPlanDialogStatus = document.getElementById('meal-plan-dialog-status');
+const generateMealPlanButton = document.getElementById('generate-meal-plan');
+const mealPlanResults = document.getElementById('meal-plan-results');
+const mealPlanSummary = document.getElementById('meal-plan-summary');
+const mealPlanList = document.getElementById('meal-plan-list');
+const mealPlanResultStatus = document.getElementById('meal-plan-result-status');
 const manualMenuPanel = document.getElementById('manual-menu-panel');
 const manualDishForm = document.getElementById('manual-dish-form');
 const mealsElement = document.getElementById('meals');
@@ -41,7 +50,11 @@ let currentMenu = null;
 let menuMode = 'url';
 let menuLoading = false;
 let menuProcessing = false;
+let mealPlanGenerating = false;
+let mealPlanApplying = false;
 let menuLoadToken = 0;
+let generatedMealPlan = null;
+let appliedMealPlanId = null;
 let activeMenuName;
 let activeMenuDate;
 let catalogElement;
@@ -57,10 +70,15 @@ function setMenuStatus(message, isLoading = false) {
 }
 
 function updateMenuActionState() {
+    const actionsDisabled = menuProcessing || mealPlanGenerating ||
+        mealPlanApplying;
+
     document.querySelectorAll('[data-menu-mode]').forEach(button => {
-        button.disabled = menuProcessing;
+        button.disabled = actionsDisabled;
     });
-    clearMenuButton.disabled = menuProcessing || menuLoading || !currentMenu;
+    clearMenuButton.disabled = actionsDisabled || menuLoading || !currentMenu;
+    openMealPlanButton.disabled = actionsDisabled ||
+        !menus.some(menu => Number(menu.dish_count) > 0);
 }
 
 function setMenuProcessing(isProcessing) {
@@ -168,6 +186,7 @@ form.addEventListener('submit', async (event) => {
 
         statusElement.textContent = 'Цели успешно сохранены';
         await loadDiary();
+        clearMealPlanResults();
 
     } catch (error) {
         statusElement.textContent = error.message;
@@ -363,6 +382,320 @@ async function loadMenus() {
     await loadMenuForMode();
 }
 
+function setMealPlanStatus(element, message, isLoading = false) {
+    element.textContent = message;
+    element.classList.toggle('is-loading', isLoading);
+    element.setAttribute('aria-busy', String(isLoading));
+}
+
+function updateMealPlanGenerateButton() {
+    const selectedCount = mealPlanMenuOptions.querySelectorAll(
+        'input[name="meal-plan-menu"]:checked'
+    ).length;
+
+    generateMealPlanButton.disabled = mealPlanGenerating ||
+        selectedCount < 1 ||
+        selectedCount > 3;
+}
+
+function clearMealPlanResults() {
+    generatedMealPlan = null;
+    appliedMealPlanId = null;
+    mealPlanList.replaceChildren();
+    mealPlanResults.classList.add('hidden');
+    mealPlanSummary.textContent = '';
+    setMealPlanStatus(mealPlanResultStatus, '');
+}
+
+function openMealPlanChooser() {
+    const availableMenus = menus.filter(menu => Number(menu.dish_count) > 0);
+
+    if (availableMenus.length === 0) {
+        return;
+    }
+
+    clearMealPlanResults();
+    mealPlanMenuOptions.replaceChildren();
+    setMealPlanStatus(mealPlanDialogStatus, '');
+
+    const sourceLabels = {
+        image_url: 'По ссылке',
+        image_upload: 'С изображения',
+        manual: 'Моё меню'
+    };
+
+    for (const menu of availableMenus) {
+        const label = document.createElement('label');
+        label.className = 'meal-plan-menu-option';
+
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.name = 'meal-plan-menu';
+        checkbox.value = String(menu.id);
+        checkbox.addEventListener('change', updateMealPlanGenerateButton);
+
+        const text = document.createElement('span');
+        text.textContent =
+            `${menu.name} · ${sourceLabels[menu.source] || menu.source} · ` +
+            `${menu.dish_count} блюд`;
+
+        label.append(checkbox, text);
+        mealPlanMenuOptions.appendChild(label);
+    }
+
+    updateMealPlanGenerateButton();
+    mealPlanDialog.showModal();
+}
+
+function formatPlanPercent(value) {
+    const prefix = value > 0 ? '+' : '';
+    return `${prefix}${formatNumber(value)}%`;
+}
+
+function createMealPlanCard(plan, planData) {
+    const card = document.createElement('article');
+    card.className = 'meal-plan-card';
+
+    const title = document.createElement('h3');
+    title.textContent = plan.title;
+    card.appendChild(title);
+
+    const tolerance = document.createElement('p');
+    tolerance.className = plan.within_tolerance
+        ? 'meal-plan-tolerance within'
+        : 'meal-plan-tolerance outside';
+    tolerance.textContent = plan.within_tolerance
+        ? `Все показатели в пределах ±${planData.tolerance_percent}%`
+        : `Некоторые показатели выходят за ±${planData.tolerance_percent}%`;
+    card.appendChild(tolerance);
+
+    const meals = document.createElement('div');
+    meals.className = 'meal-plan-meals';
+
+    for (const [mealType, mealName] of Object.entries(mealNames)) {
+        const meal = document.createElement('section');
+        meal.className = 'meal-plan-meal';
+
+        const heading = document.createElement('h4');
+        heading.textContent = mealName;
+        meal.appendChild(heading);
+
+        const items = plan.meals[mealType];
+
+        if (items.length === 0) {
+            const empty = document.createElement('p');
+            empty.className = 'meal-plan-empty';
+            empty.textContent = 'Блюда не выбраны';
+            meal.appendChild(empty);
+        } else {
+            const list = document.createElement('ul');
+            const mealTotals = {
+                calories: 0,
+                protein: 0,
+                fat: 0,
+                carbs: 0
+            };
+
+            for (const item of items) {
+                const listItem = document.createElement('li');
+                listItem.textContent =
+                    `${item.name} — ${item.servings} порц. · ` +
+                    `${formatNumber(item.portion_weight_g)} г · ` +
+                    `${formatNumber(item.calories)} ккал`;
+                list.appendChild(listItem);
+
+                for (const nutrient of Object.keys(mealTotals)) {
+                    mealTotals[nutrient] += item[nutrient];
+                }
+            }
+
+            meal.appendChild(list);
+
+            const totals = document.createElement('p');
+            totals.className = 'meal-plan-meal-totals';
+            totals.textContent =
+                `${formatNumber(mealTotals.calories)} ккал · ` +
+                `Б ${formatNumber(mealTotals.protein)} г · ` +
+                `Ж ${formatNumber(mealTotals.fat)} г · ` +
+                `У ${formatNumber(mealTotals.carbs)} г`;
+            meal.appendChild(totals);
+        }
+
+        meals.appendChild(meal);
+    }
+
+    card.appendChild(meals);
+
+    const totalsHeading = document.createElement('h4');
+    totalsHeading.className = 'meal-plan-totals-heading';
+    totalsHeading.textContent = 'Итого за день и отклонение от цели';
+    card.appendChild(totalsHeading);
+
+    const totals = document.createElement('dl');
+    totals.className = 'meal-plan-totals';
+
+    for (const nutrient of ['calories', 'protein', 'fat', 'carbs']) {
+        const term = document.createElement('dt');
+        term.textContent = nutrientNames[nutrient];
+
+        const value = document.createElement('dd');
+        const unit = nutrientUnits[nutrient];
+        const deviation = plan.deviations[nutrient];
+        value.textContent =
+            `${formatNumber(plan.totals[nutrient])} / ` +
+            `${formatNumber(planData.goals[nutrient])} ${unit} ` +
+            `(${formatPlanPercent(deviation.percent)})`;
+
+        totals.append(term, value);
+    }
+
+    card.appendChild(totals);
+
+    const applyButton = document.createElement('button');
+    applyButton.type = 'button';
+    applyButton.className = 'meal-plan-apply';
+    applyButton.textContent = 'Добавить вариант в дневник';
+    applyButton.disabled = appliedMealPlanId !== null;
+    applyButton.addEventListener('click', () =>
+        applyMealPlan(plan, planData)
+    );
+    card.appendChild(applyButton);
+
+    return card;
+}
+
+function renderMealPlans(planData) {
+    generatedMealPlan = planData;
+    appliedMealPlanId = null;
+    mealPlanList.replaceChildren();
+
+    const sourceList = planData.menu_names.join(', ');
+    const excludedMessage = planData.excluded_dish_count > 0
+        ? ` Исключено блюд с неполным КБЖУ: ${planData.excluded_dish_count}.`
+        : '';
+    mealPlanSummary.textContent =
+        `Дата: ${planData.date} · Меню: ${sourceList}.${excludedMessage}`;
+
+    for (const plan of planData.plans) {
+        mealPlanList.appendChild(createMealPlanCard(plan, planData));
+    }
+
+    mealPlanResults.classList.remove('hidden');
+}
+
+async function generateMealPlan() {
+    const menuIds = Array.from(
+        mealPlanMenuOptions.querySelectorAll(
+            'input[name="meal-plan-menu"]:checked'
+        ),
+        checkbox => Number(checkbox.value)
+    );
+
+    if (menuIds.length < 1 || menuIds.length > 3) {
+        setMealPlanStatus(mealPlanDialogStatus, 'Выберите от одного до трёх меню.');
+        return;
+    }
+
+    mealPlanGenerating = true;
+    updateMenuActionState();
+    updateMealPlanGenerateButton();
+    mealPlanMenuOptions.querySelectorAll('input').forEach(input => {
+        input.disabled = true;
+    });
+    document.getElementById('cancel-meal-plan').disabled = true;
+    setMealPlanStatus(
+        mealPlanDialogStatus,
+        'Gemini подбирает блюда и рассчитывает варианты. Это может занять некоторое время.',
+        true
+    );
+
+    const date = dateInput.value;
+
+    try {
+        const response = await fetch('/api/meal-plans', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ date, menu_ids: menuIds })
+        });
+        const result = await response.json();
+
+        if (!response.ok) {
+            throw new Error(result.error || 'Не удалось составить план питания');
+        }
+
+        mealPlanDialog.close();
+        renderMealPlans(result);
+        mealPlanResults.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } catch (error) {
+        setMealPlanStatus(mealPlanDialogStatus, error.message);
+    } finally {
+        mealPlanGenerating = false;
+        mealPlanMenuOptions.querySelectorAll('input').forEach(input => {
+            input.disabled = false;
+        });
+        document.getElementById('cancel-meal-plan').disabled = false;
+        updateMenuActionState();
+        updateMealPlanGenerateButton();
+    }
+}
+
+async function applyMealPlan(plan, planData) {
+    if (mealPlanApplying || appliedMealPlanId !== null) {
+        return;
+    }
+
+    const entries = Object.entries(plan.meals).flatMap(([mealType, dishes]) =>
+        dishes.map(dish => ({
+            dish_id: dish.dish_id,
+            meal_type: mealType,
+            servings: dish.servings
+        }))
+    );
+
+    mealPlanApplying = true;
+    mealPlanList.querySelectorAll('.meal-plan-apply').forEach(button => {
+        button.disabled = true;
+    });
+    updateMenuActionState();
+    setMealPlanStatus(mealPlanResultStatus, 'Добавляем план в дневник...', true);
+
+    try {
+        const response = await fetch('/api/meal-plans/apply', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                date: planData.date,
+                menu_ids: planData.menu_ids,
+                entries
+            })
+        });
+        const result = await response.json();
+
+        if (!response.ok) {
+            throw new Error(result.error || 'Не удалось добавить план в дневник');
+        }
+
+        appliedMealPlanId = plan.id;
+        dateInput.value = planData.date;
+        await loadDiary();
+        mealPlanList.querySelectorAll('.meal-plan-apply').forEach(button => {
+            button.disabled = true;
+        });
+        setMealPlanStatus(
+            mealPlanResultStatus,
+            `План добавлен в дневник за ${planData.date}.`
+        );
+    } catch (error) {
+        mealPlanList.querySelectorAll('.meal-plan-apply').forEach(button => {
+            button.disabled = appliedMealPlanId !== null;
+        });
+        setMealPlanStatus(mealPlanResultStatus, error.message);
+    } finally {
+        mealPlanApplying = false;
+        updateMenuActionState();
+    }
+}
+
 function setMenuMode(mode) {
     menuMode = mode;
 
@@ -414,6 +747,7 @@ async function postMenuForm(
 
         await loadMenus();
         form.reset();
+        clearMealPlanResults();
         setMenuStatus(`Меню «${result.name}» добавлено.`);
         return result;
     } catch (error) {
@@ -448,6 +782,16 @@ document.querySelectorAll('[data-menu-mode]').forEach(button => {
 });
 
 clearMenuButton.addEventListener('click', clearActiveMenu);
+openMealPlanButton.addEventListener('click', openMealPlanChooser);
+generateMealPlanButton.addEventListener('click', generateMealPlan);
+document.getElementById('cancel-meal-plan').addEventListener('click', () => {
+    mealPlanDialog.close();
+});
+mealPlanDialog.addEventListener('cancel', event => {
+    if (mealPlanGenerating) {
+        event.preventDefault();
+    }
+});
 
 document.getElementById('url-menu-form').addEventListener('submit', event => {
     event.preventDefault();
@@ -523,6 +867,7 @@ manualDishForm.addEventListener('submit', async event => {
 
         form.reset();
         await loadMenus();
+        clearMealPlanResults();
         setMenuStatus(`Блюдо «${dish.name}» добавлено в меню.`);
     } catch (error) {
         setMenuStatus(error.message);
@@ -548,6 +893,7 @@ async function deleteMenuDish(menuId, dish) {
         }
 
         await loadMenus();
+        clearMealPlanResults();
         setMenuStatus(`Блюдо «${dish.name}» удалено из «Моего меню».`);
     } catch (error) {
         setMenuStatus(error.message);
@@ -585,6 +931,7 @@ async function clearActiveMenu() {
         }
 
         await loadMenus();
+        clearMealPlanResults();
         setMenuStatus(
             `Меню «${menu.name}» очищено. Удалено блюд: ${result.deleted_dishes}.`
         );

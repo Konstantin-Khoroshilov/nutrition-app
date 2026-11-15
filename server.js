@@ -5,6 +5,7 @@ const db = require('./database/database');
 const fs = require('fs');
 const { recognizeMenuBuffer } = require('./recognize');
 const { downloadImage, MAX_IMAGE_BYTES } = require('./imageDownloader');
+const { generateMealPlans } = require('./mealPlanner');
 
 const app = express();
 const PORT = 3000;
@@ -13,6 +14,9 @@ app.use(express.json({ limit: '14mb' }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 const mealTypes = ['breakfast', 'lunch', 'snack', 'dinner'];
+const planMenuSources = ['image_url', 'image_upload', 'manual'];
+const mealPlanCount = 3;
+const mealPlanTolerancePercent = 15;
 
 function isValidDate(date) {
   return typeof date === 'string' &&
@@ -48,6 +52,92 @@ function getOrCreateDailyGoals(date) {
   return db.prepare(
     'SELECT * FROM daily_goals WHERE diary_date = ?'
   ).get(date);
+}
+
+function createRequestError(message, statusCode = 400) {
+  const error = new Error(message);
+  error.statusCode = statusCode;
+  return error;
+}
+
+function getSelectedPlanMenus(menuIds) {
+  if (
+    !Array.isArray(menuIds) ||
+    menuIds.length < 1 ||
+    menuIds.length > planMenuSources.length ||
+    !menuIds.every(id => Number.isInteger(id) && id > 0) ||
+    new Set(menuIds).size !== menuIds.length
+  ) {
+    throw createRequestError('Выберите от одного до трёх разных меню');
+  }
+
+  const getMenuById = db.prepare(`
+    SELECT id, name, source
+    FROM menus AS menu
+    WHERE id = ?
+      AND source IN ('image_url', 'image_upload', 'manual')
+      AND id = (
+        SELECT MAX(latest.id)
+        FROM menus AS latest
+        WHERE latest.source = menu.source
+      )
+  `);
+  const selectedMenus = menuIds.map(id => getMenuById.get(id));
+
+  if (selectedMenus.some(menu => !menu)) {
+    throw createRequestError(
+      'Одно из выбранных меню больше не доступно. Обновите список меню.',
+      409
+    );
+  }
+
+  return selectedMenus;
+}
+
+function hasCompleteNutrition(dish) {
+  return typeof dish.portion_weight_g === 'number' &&
+    Number.isFinite(dish.portion_weight_g) &&
+    dish.portion_weight_g > 0 &&
+    ['calories', 'protein', 'fat', 'carbs'].every(nutrient =>
+      typeof dish[nutrient] === 'number' &&
+      Number.isFinite(dish[nutrient]) &&
+      dish[nutrient] >= 0
+    );
+}
+
+function insertDiaryEntry(entry) {
+  const nutrients = {
+    calories: entry.calories,
+    protein: entry.protein,
+    fat: entry.fat,
+    carbs: entry.carbs
+  };
+  const missingFields = entry.missing_fields || [];
+  const hasMissingData = missingFields.length > 0 ||
+    Object.values(nutrients).some(value => value == null);
+
+  const result = db.prepare(`
+    INSERT INTO diary_entries (
+      diary_date, meal_type, dish_name, portion_weight_g,
+      calories, protein, fat, carbs, missing_fields,
+      nutrition_status, created_at
+    )
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `).run(
+    entry.diary_date,
+    entry.meal_type,
+    entry.dish_name,
+    entry.portion_weight_g,
+    nutrients.calories,
+    nutrients.protein,
+    nutrients.fat,
+    nutrients.carbs,
+    JSON.stringify(missingFields),
+    hasMissingData ? 'approximate' : 'complete',
+    new Date().toISOString()
+  );
+
+  return Number(result.lastInsertRowid);
 }
 
 // Проверка работы сервера
@@ -337,6 +427,94 @@ app.delete('/api/menus/source/:source', (req, res) => {
     deleted_menus: menuCount,
     deleted_dishes: dishCount
   });
+});
+
+app.post('/api/meal-plans', async (req, res) => {
+  const { date, menu_ids: menuIds } = req.body || {};
+
+  if (!isValidDate(date)) {
+    return res.status(400).json({
+      error: 'Укажите дату в формате YYYY-MM-DD'
+    });
+  }
+
+  try {
+    const selectedMenus = getSelectedPlanMenus(menuIds);
+    const goals = getOrCreateDailyGoals(date);
+
+    if (!goals || !['calories', 'protein', 'fat', 'carbs'].every(nutrient =>
+      Number.isFinite(goals[nutrient]) && goals[nutrient] > 0
+    )) {
+      return res.status(400).json({
+        error: 'Сначала задайте положительные дневные цели по КБЖУ.'
+      });
+    }
+
+    const placeholders = menuIds.map(() => '?').join(', ');
+    const allDishes = db.prepare(`
+      SELECT id, menu_id, name, portion_weight_g,
+        calories, protein, fat, carbs
+      FROM menu_dishes
+      WHERE menu_id IN (${placeholders})
+    `).all(...menuIds);
+    const eligibleDishes = allDishes.filter(hasCompleteNutrition);
+
+    if (eligibleDishes.length === 0) {
+      return res.status(422).json({
+        error: 'В выбранных меню нет блюд с полным КБЖУ и весом порции.'
+      });
+    }
+
+    const dishesByMenu = new Map(
+      selectedMenus.map(menu => [menu.id, []])
+    );
+
+    for (const dish of eligibleDishes) {
+      dishesByMenu.get(dish.menu_id).push({
+        id: dish.id,
+        name: dish.name,
+        portion_weight_g: dish.portion_weight_g,
+        calories: dish.calories,
+        protein: dish.protein,
+        fat: dish.fat,
+        carbs: dish.carbs
+      });
+    }
+
+    const promptMenus = selectedMenus.map(menu => ({
+      id: menu.id,
+      name: menu.name,
+      dishes: dishesByMenu.get(menu.id)
+    }));
+    const targetGoals = {
+      calories: goals.calories,
+      protein: goals.protein,
+      fat: goals.fat,
+      carbs: goals.carbs
+    };
+    const plans = await generateMealPlans({
+      menus: promptMenus,
+      dishes: eligibleDishes,
+      goals: targetGoals,
+      count: mealPlanCount,
+      tolerancePercent: mealPlanTolerancePercent
+    });
+
+    res.json({
+      date,
+      menu_ids: menuIds,
+      menu_names: selectedMenus.map(menu => menu.name),
+      goals: targetGoals,
+      tolerance_percent: mealPlanTolerancePercent,
+      excluded_dish_count: allDishes.length - eligibleDishes.length,
+      plans
+    });
+  } catch (error) {
+    console.error('Ошибка составления плана питания:', error);
+    res.status(error.statusCode || 500).json({
+      error: error.message || 'Не удалось составить план питания'
+    });
+  }
 });
 
 app.post('/api/menus/recognize', async (req, res) => {
@@ -669,6 +847,108 @@ app.get('/api/diary', (req, res) => {
 });
 
 // Добавление блюда в дневник
+app.post('/api/meal-plans/apply', (req, res) => {
+  const { date, menu_ids: menuIds, entries } = req.body || {};
+
+  if (!isValidDate(date)) {
+    return res.status(400).json({ error: 'Некорректная дата плана' });
+  }
+
+  let selectedMenus;
+
+  try {
+    selectedMenus = getSelectedPlanMenus(menuIds);
+  } catch (error) {
+    return res.status(error.statusCode || 400).json({
+      error: error.message
+    });
+  }
+
+  if (
+    !Array.isArray(entries) ||
+    entries.length === 0 ||
+    entries.length > 40
+  ) {
+    return res.status(400).json({
+      error: 'В плане должно быть от одного до 40 блюд'
+    });
+  }
+
+  const selectedMenuIds = new Set(selectedMenus.map(menu => menu.id));
+  const getDish = db.prepare(`
+    SELECT dish.id, dish.menu_id, dish.name, dish.portion_weight_g,
+      dish.calories, dish.protein, dish.fat, dish.carbs
+    FROM menu_dishes AS dish
+    WHERE dish.id = ?
+  `);
+  const preparedEntries = [];
+
+  for (const entry of entries) {
+    if (
+      !entry ||
+      !Number.isInteger(entry.dish_id) ||
+      entry.dish_id <= 0 ||
+      !mealTypes.includes(entry.meal_type) ||
+      ![1, 2].includes(entry.servings)
+    ) {
+      return res.status(400).json({
+        error: 'В плане есть некорректное блюдо, приём пищи или число порций'
+      });
+    }
+
+    const dish = getDish.get(entry.dish_id);
+
+    if (!dish || !selectedMenuIds.has(dish.menu_id)) {
+      return res.status(409).json({
+        error: 'Одно из блюд больше не доступно в выбранных меню'
+      });
+    }
+
+    if (!hasCompleteNutrition(dish)) {
+      return res.status(409).json({
+        error: `У блюда «${dish.name}» больше нет полного КБЖУ`
+      });
+    }
+
+    preparedEntries.push({
+      dish,
+      meal_type: entry.meal_type,
+      servings: entry.servings
+    });
+  }
+
+  db.exec('BEGIN');
+
+  try {
+    for (const { dish, meal_type, servings } of preparedEntries) {
+      insertDiaryEntry({
+        diary_date: date,
+        meal_type,
+        dish_name: servings > 1
+          ? `${dish.name} (${servings} порции)`
+          : dish.name,
+        portion_weight_g: dish.portion_weight_g * servings,
+        calories: dish.calories * servings,
+        protein: dish.protein * servings,
+        fat: dish.fat * servings,
+        carbs: dish.carbs * servings,
+        missing_fields: []
+      });
+    }
+
+    db.exec('COMMIT');
+  } catch (error) {
+    db.exec('ROLLBACK');
+    throw error;
+  }
+
+  res.status(201).json({
+    success: true,
+    entries_added: preparedEntries.length,
+    date
+  });
+});
+
 app.post('/api/diary/entries', (req, res) => {
   const {
     diary_date,
@@ -729,34 +1009,21 @@ app.post('/api/diary/entries', (req, res) => {
     });
   }
 
-  const hasMissingData =
-    missing_fields.length > 0 ||
-    Object.values(nutrients).some(value => value == null);
-
-  const result = db.prepare(`
-    INSERT INTO diary_entries (
-      diary_date, meal_type, dish_name, portion_weight_g,
-      calories, protein, fat, carbs, missing_fields,
-      nutrition_status, created_at
-    )
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-  `).run(
+  const entryId = insertDiaryEntry({
     diary_date,
     meal_type,
-    dish_name.trim(),
+    dish_name: dish_name.trim(),
     portion_weight_g,
-    calories ?? null,
-    protein ?? null,
-    fat ?? null,
-    carbs ?? null,
-    JSON.stringify(missing_fields),
-    hasMissingData ? 'approximate' : 'complete',
-    new Date().toISOString()
-  );
+    calories: calories ?? null,
+    protein: protein ?? null,
+    fat: fat ?? null,
+    carbs: carbs ?? null,
+    missing_fields
+  });
 
   const entry = db.prepare(
     'SELECT * FROM diary_entries WHERE id = ?'
-  ).get(Number(result.lastInsertRowid));
+  ).get(entryId);
 
   res.status(201).json({
     success: true,

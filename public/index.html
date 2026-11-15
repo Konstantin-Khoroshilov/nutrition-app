@@ -155,8 +155,37 @@
         </form>
       </div>
 
+      <div class="meal-plan-actions">
+        <button id="open-meal-plan" type="button" disabled>
+          Составить план
+        </button>
+      </div>
+
       <p id="menuStatus" class="menu-status" role="status" aria-live="polite"
         aria-busy="false"></p>
+    </section>
+
+    <dialog id="meal-plan-dialog" class="meal-plan-dialog"
+      aria-labelledby="meal-plan-dialog-title">
+      <h2 id="meal-plan-dialog-title">Выберите меню для плана</h2>
+      <p>Можно выбрать одно, два или три меню. Используются блюда с полным КБЖУ.</p>
+      <fieldset id="meal-plan-menu-options" class="meal-plan-menu-options"></fieldset>
+      <p id="meal-plan-dialog-status" class="meal-plan-status" role="status"
+        aria-live="polite" aria-busy="false"></p>
+      <div class="meal-plan-dialog-actions">
+        <button id="cancel-meal-plan" type="button">Отмена</button>
+        <button id="generate-meal-plan" type="button" disabled>
+          Составить варианты
+        </button>
+      </div>
+    </dialog>
+
+    <section id="meal-plan-results" class="panel meal-plan-results hidden">
+      <h2>Варианты плана питания</h2>
+      <p id="meal-plan-summary" class="meal-plan-summary"></p>
+      <div id="meal-plan-list"></div>
+      <p id="meal-plan-result-status" class="meal-plan-status" role="status"
+        aria-live="polite"></p>
     </section>
 
     <!-- Приёмы пищи -->
