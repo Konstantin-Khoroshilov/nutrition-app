@@ -8,7 +8,7 @@ const { downloadImage, MAX_IMAGE_BYTES } = require('./imageDownloader');
 const { generateMealPlans } = require('./mealPlanner');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(express.json({ limit: '14mb' }));
 app.use(express.static(path.join(__dirname, 'public')));
