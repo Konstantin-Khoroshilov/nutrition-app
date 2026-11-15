@@ -9,10 +9,7 @@ const OUTPUT_FILE = 'menu.json';
 
 const CHUNK_HEIGHT = 1800;
 const OVERLAP = 120;
-
-// Создаём клиент Gemini
-let ai;
-let MODEL;
+const MAX_IMAGE_PIXELS = 40000000;
 
 // Определяем нижнюю границу содержимого
 async function findContentBottom(buffer) {
@@ -213,25 +210,6 @@ function validateDish(dish, index) {
     };
 }
 
-function saveProgress(dishes) {
-    const result = {
-        source: 'Freshvote',
-        recognized_at: new Date().toISOString(),
-        total_dishes: dishes.length,
-        dishes
-    };
-
-    fs.writeFileSync(
-        'menu.partial.json',
-        JSON.stringify(result, null, 2),
-        'utf8'
-    );
-
-    console.log(
-        `Промежуточно сохранено блюд: ${dishes.length}`
-    );
-}
-
 // Убираем дубликаты, возникшие из-за перекрытия фрагментов
 function removeDuplicates(dishes) {
     const unique = new Map();
@@ -255,7 +233,7 @@ function removeDuplicates(dishes) {
 }
 
 // Распознаём один фрагмент
-async function recognizeFragment(buffer, chunkNumber, totalChunks) {
+async function recognizeFragment(buffer, chunkNumber, totalChunks, ai, model) {
     console.log(`Распознаём фрагмент ${chunkNumber}/${totalChunks}...`);
 
     // Увеличиваем ширину изображения для удобства
@@ -272,7 +250,7 @@ async function recognizeFragment(buffer, chunkNumber, totalChunks) {
     const base64 = preparedImage.toString('base64');
 
     const response = await ai.models.generateContent({
-        model: MODEL,
+        model,
 
         contents: [
             {
@@ -318,8 +296,7 @@ async function recognizeFragment(buffer, chunkNumber, totalChunks) {
     return validatedDishes;
 }
 
-// Основная функция
-async function recognizeMenu() {
+async function recognizeMenuBuffer(original) {
     if (!process.env.GEMINI_API_KEY) {
         throw new Error(
             'Не задан GEMINI_API_KEY в файле .env'
@@ -330,29 +307,36 @@ async function recognizeMenu() {
     // существующий CommonJS-формат проекта.
     const { GoogleGenAI } = await import('@google/genai');
 
-    ai = new GoogleGenAI({
+    const ai = new GoogleGenAI({
         apiKey: process.env.GEMINI_API_KEY
     });
 
-    MODEL = process.env.GEMINI_MODEL || 'gemini-3-flash-preview';
+    const model = process.env.GEMINI_MODEL || 'gemini-3-flash-preview';
 
-    if (!fs.existsSync(INPUT_FILE)) {
-        throw new Error(`Не найден файл ${INPUT_FILE}`);
+    let metadata;
+
+    try {
+        metadata = await sharp(original).metadata();
+    } catch {
+        const error = new Error('Файл не является корректным изображением');
+        error.statusCode = 422;
+        throw error;
     }
 
-    console.log('Открываем изображение...');
-
-    const original = fs.readFileSync(INPUT_FILE);
-
-    const metadata = await sharp(original).metadata();
-
-    console.log(
-        `Исходное разрешение: ${metadata.width}x${metadata.height}`
-    );
+    if (
+        !['jpeg', 'png', 'webp'].includes(metadata.format) ||
+        !metadata.width ||
+        !metadata.height ||
+        metadata.width * metadata.height > MAX_IMAGE_PIXELS
+    ) {
+        const error = new Error(
+            'Поддерживаются изображения JPEG, PNG и WebP до 40 Мп'
+        );
+        error.statusCode = 422;
+        throw error;
+    }
 
     const contentBottom = await findContentBottom(original);
-
-    console.log(`Нижняя граница меню: ${contentBottom}`);
 
     // Сначала определяем количество фрагментов
     const stride = CHUNK_HEIGHT - OVERLAP;
@@ -365,8 +349,6 @@ async function recognizeMenu() {
     ) {
         totalChunks++;
     }
-
-    console.log(`Всего фрагментов: ${totalChunks}`);
 
     const allDishes = [];
 
@@ -392,14 +374,12 @@ async function recognizeMenu() {
         const dishes = await recognizeFragment(
             fragment,
             chunkNumber,
-            totalChunks
+            totalChunks,
+            ai,
+            model
         );
 
         allDishes.push(...dishes);
-
-        const uniqueDishes = removeDuplicates(allDishes);
-
-        saveProgress(uniqueDishes);
 
         const remaining = contentBottom - (start + height);
 
@@ -415,19 +395,24 @@ async function recognizeMenu() {
 
     const uniqueDishes = removeDuplicates(allDishes);
 
-    const result = {
-        source: 'Freshvote',
-        source_image: INPUT_FILE,
+    const dishes = removeDuplicates(allDishes);
+
+    return {
+        source: 'image',
         recognized_at: new Date().toISOString(),
-        model: MODEL,
-        total_dishes: uniqueDishes.length,
-        dishes: uniqueDishes
+        model,
+        total_dishes: dishes.length,
+        dishes
     };
+}
 
-    // Сначала записываем временный файл.
-    // Основной JSON не будет повреждён при ошибке записи.
+async function recognizeMenu() {
+    if (!fs.existsSync(INPUT_FILE)) {
+        throw new Error(`Не найден файл ${INPUT_FILE}`);
+    }
+
+    const result = await recognizeMenuBuffer(fs.readFileSync(INPUT_FILE));
     const tempFile = `${OUTPUT_FILE}.tmp`;
-
     fs.writeFileSync(
         tempFile,
         JSON.stringify(result, null, 2),
@@ -436,13 +421,15 @@ async function recognizeMenu() {
 
     fs.renameSync(tempFile, OUTPUT_FILE);
 
-    console.log('----------------------------');
-    console.log(`Распознано блюд: ${uniqueDishes.length}`);
+    console.log(`Распознано блюд: ${result.total_dishes}`);
     console.log(`Результат сохранён: ${OUTPUT_FILE}`);
 }
 
-// Запуск
-recognizeMenu().catch(error => {
-    console.error('Ошибка распознавания:', error);
-    process.exitCode = 1;
-});
+module.exports = { recognizeMenuBuffer };
+
+if (require.main === module) {
+    recognizeMenu().catch(error => {
+        console.error('Ошибка распознавания:', error);
+        process.exitCode = 1;
+    });
+}

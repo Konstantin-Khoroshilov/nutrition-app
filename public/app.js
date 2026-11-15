@@ -4,6 +4,10 @@ const statusElement = document.getElementById('status');
 const dateInput = document.getElementById('diaryDate');
 const previousDayButton = document.getElementById('previousDay');
 const nextDayButton = document.getElementById('nextDay');
+const menuStatus = document.getElementById('menuStatus');
+const clearMenuButton = document.getElementById('clear-menu-button');
+const manualMenuPanel = document.getElementById('manual-menu-panel');
+const manualDishForm = document.getElementById('manual-dish-form');
 const mealsElement = document.getElementById('meals');
 const totalsElement = document.getElementById('totals');
 const warningElement = document.getElementById('approximateWarning');
@@ -32,11 +36,37 @@ const nutrientUnits = {
 };
 
 let menuDishes = [];
+let menus = [];
+let currentMenu = null;
+let menuMode = 'url';
+let menuLoading = false;
+let menuProcessing = false;
+let menuLoadToken = 0;
+let activeMenuName;
+let activeMenuDate;
 let catalogElement;
 let searchInput;
 let searchCount;
 let catalogList;
 let dailyTotalsReady = false;
+
+function setMenuStatus(message, isLoading = false) {
+    menuStatus.textContent = message;
+    menuStatus.classList.toggle('is-loading', isLoading);
+    menuStatus.setAttribute('aria-busy', String(isLoading));
+}
+
+function updateMenuActionState() {
+    document.querySelectorAll('[data-menu-mode]').forEach(button => {
+        button.disabled = menuProcessing;
+    });
+    clearMenuButton.disabled = menuProcessing || menuLoading || !currentMenu;
+}
+
+function setMenuProcessing(isProcessing) {
+    menuProcessing = isProcessing;
+    updateMenuActionState();
+}
 
 function updateStickyDailyTotalsVisibility() {
     const hasScrolledPastTotals =
@@ -144,13 +174,24 @@ form.addEventListener('submit', async (event) => {
     }
 });
 
-// Создаём единый каталог меню
+// Создаём каталог блюд выбранного меню
 function createCatalog() {
     catalogElement = document.createElement('section');
     catalogElement.className = 'menu-catalog';
 
     const heading = document.createElement('h2');
-    heading.textContent = 'Меню Freshvote';
+    heading.textContent = 'Блюда меню';
+
+    const menuInfo = document.createElement('div');
+    menuInfo.className = 'menu-current-info';
+    activeMenuName = document.createElement('strong');
+    activeMenuName.id = 'activeMenuName';
+    activeMenuName.setAttribute('aria-live', 'polite');
+    activeMenuDate = document.createElement('small');
+    activeMenuDate.id = 'activeMenuDate';
+    activeMenuDate.className = 'hidden';
+    menuInfo.appendChild(activeMenuName);
+    menuInfo.appendChild(activeMenuDate);
 
     searchInput = document.createElement('input');
     searchInput.type = 'search';
@@ -166,6 +207,7 @@ function createCatalog() {
     searchInput.addEventListener('input', renderCatalog);
 
     catalogElement.appendChild(heading);
+    catalogElement.appendChild(menuInfo);
     catalogElement.appendChild(searchInput);
     catalogElement.appendChild(searchCount);
     catalogElement.appendChild(catalogList);
@@ -177,25 +219,379 @@ function createCatalog() {
     );
 }
 
-// Загружаем меню с сервера
-async function loadMenu() {
+function getMenuSource(mode) {
+    return {
+        url: 'image_url',
+        upload: 'image_upload',
+        manual: 'manual'
+    }[mode];
+}
+
+function updateActiveMenuInfo() {
+    const emptyLabels = {
+        url: 'Меню по ссылке не загружено',
+        upload: 'Меню с изображения не загружено',
+        manual: 'Моё меню'
+    };
+    activeMenuName.textContent = currentMenu
+        ? currentMenu.name
+        : emptyLabels[menuMode];
+    const recognizedAt = currentMenu?.recognized_at
+        ? new Date(currentMenu.recognized_at)
+        : null;
+    const recognizedLabel = recognizedAt && !Number.isNaN(recognizedAt.getTime())
+        ? `Распознано: ${recognizedAt.toLocaleString('ru-RU', {
+            dateStyle: 'short',
+            timeStyle: 'short'
+        })}`
+        : '';
+    activeMenuDate.textContent = recognizedLabel;
+    activeMenuDate.classList.toggle('hidden', !recognizedLabel);
+    updateManualDishForm();
+    updateMenuActionState();
+}
+
+function updateManualDishForm() {
+    const canAddDish = menuMode === 'manual' &&
+        currentMenu?.source === 'manual';
+
+    manualDishForm.classList.toggle('hidden', !canAddDish);
+}
+
+async function openMyMenu() {
+    if (menus.some(menu => menu.source === 'manual')) {
+        await loadMenuForMode();
+        return;
+    }
+
+    setMenuStatus('Открываем «Моё меню»...', true);
+
     try {
-        const response = await fetch('/api/menu');
+        const response = await fetch('/api/menus/manual', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name: 'Моё меню' })
+        });
+        const menu = await response.json();
 
         if (!response.ok) {
-            throw new Error('Не удалось загрузить меню');
+            throw new Error(menu.error || 'Не удалось открыть «Моё меню»');
         }
 
+        await loadMenus();
+        setMenuStatus('Добавляйте блюда в «Моё меню».');
+    } catch (error) {
+        setMenuStatus(error.message);
+    }
+}
+
+async function loadMenuForMode() {
+    const loadToken = ++menuLoadToken;
+    const loadingMode = menuMode;
+    const source = getMenuSource(loadingMode);
+    const menuSummary = menus.find(menu =>
+        menu.source === source ||
+        (loadingMode === 'url' && menu.source === 'saved')
+    );
+
+    menuLoading = true;
+    currentMenu = null;
+    menuDishes = [];
+    if (searchInput) {
+        searchInput.value = '';
+    }
+
+    updateActiveMenuInfo();
+    updateMenuActionState();
+
+    if (!menuSummary) {
+        menuLoading = false;
+        updateMenuActionState();
+        renderCatalog();
+        return;
+    }
+
+    if (catalogList) {
+        catalogList.textContent = 'Загружаем меню...';
+    }
+
+    try {
+        const response = await fetch(`/api/menus/${menuSummary.id}`);
         const data = await response.json();
 
-        menuDishes = data.dishes || [];
+        if (!response.ok) {
+            throw new Error(data.error || 'Не удалось загрузить меню');
+        }
 
+        if (
+            loadToken !== menuLoadToken ||
+            menuMode !== loadingMode
+        ) {
+            return;
+        }
+
+        currentMenu = data;
+        menuDishes = data.dishes;
+        updateActiveMenuInfo();
         renderCatalog();
-
     } catch (error) {
-        if (catalogList) {
+        if (
+            loadToken === menuLoadToken &&
+            menuMode === loadingMode &&
+            catalogList
+        ) {
             catalogList.textContent = error.message;
         }
+    } finally {
+        if (loadToken === menuLoadToken) {
+            menuLoading = false;
+            updateManualDishForm();
+            updateMenuActionState();
+        }
+    }
+}
+
+async function loadMenus() {
+    const response = await fetch('/api/menus');
+    const data = await response.json();
+
+    if (!response.ok) {
+        throw new Error(data.error || 'Не удалось загрузить список меню');
+    }
+
+    menus = data.sort((first, second) => Number(second.id) - Number(first.id));
+    await loadMenuForMode();
+}
+
+function setMenuMode(mode) {
+    menuMode = mode;
+
+    document.querySelectorAll('[data-menu-mode]').forEach(button => {
+        button.setAttribute(
+            'aria-pressed',
+            String(button.dataset.menuMode === mode)
+        );
+    });
+
+    document.getElementById('url-menu-form')
+        .classList.toggle('hidden', mode !== 'url');
+    document.getElementById('upload-menu-form')
+        .classList.toggle('hidden', mode !== 'upload');
+    manualMenuPanel.classList.toggle('hidden', mode !== 'manual');
+    setMenuStatus('');
+    updateActiveMenuInfo();
+    updateManualDishForm();
+}
+
+async function postMenuForm(
+    form,
+    endpoint,
+    payload,
+    progressMessage,
+    preparePayload
+) {
+    const submitButton = form.querySelector('button[type="submit"]');
+    submitButton.disabled = true;
+    setMenuProcessing(true);
+
+    try {
+        if (preparePayload) {
+            setMenuStatus('Подготавливаем изображение...', true);
+            payload = await preparePayload();
+        }
+
+        setMenuStatus(progressMessage, true);
+        const response = await fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+        const result = await response.json();
+
+        if (!response.ok) {
+            throw new Error(result.error || 'Не удалось сохранить меню');
+        }
+
+        await loadMenus();
+        form.reset();
+        setMenuStatus(`Меню «${result.name}» добавлено.`);
+        return result;
+    } catch (error) {
+        setMenuStatus(error.message);
+        return null;
+    } finally {
+        submitButton.disabled = false;
+        setMenuProcessing(false);
+    }
+}
+
+async function readImageFile(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = () => reject(new Error('Не удалось прочитать изображение'));
+        reader.readAsDataURL(file);
+    });
+}
+
+document.querySelectorAll('[data-menu-mode]').forEach(button => {
+    button.addEventListener('click', () => {
+        const mode = button.dataset.menuMode;
+        setMenuMode(mode);
+
+        if (mode === 'manual') {
+            openMyMenu();
+        } else {
+            loadMenuForMode();
+        }
+    });
+});
+
+clearMenuButton.addEventListener('click', clearActiveMenu);
+
+document.getElementById('url-menu-form').addEventListener('submit', event => {
+    event.preventDefault();
+    const fields = new FormData(event.currentTarget);
+
+    postMenuForm(event.currentTarget, '/api/menus/recognize', {
+        name: fields.get('name'),
+        url: fields.get('url')
+    }, 'Загружаем изображение по ссылке и распознаём меню. Это может занять некоторое время.');
+});
+
+document.getElementById('upload-menu-form').addEventListener('submit', async event => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const fields = new FormData(form);
+    const file = fields.get('image');
+
+    if (!file || file.size === 0) {
+        setMenuStatus('Выберите изображение меню.');
+        return;
+    }
+
+    if (file.size > 10 * 1024 * 1024) {
+        setMenuStatus('Размер изображения должен быть не более 10 МБ.');
+        return;
+    }
+
+    postMenuForm(form, '/api/menus/recognize', {
+        name: fields.get('name')
+    }, 'Распознаём изображение меню. Это может занять некоторое время.', async () => {
+        const imageData = await readImageFile(file);
+        return {
+            name: fields.get('name'),
+            imageData
+        };
+    });
+});
+
+manualDishForm.addEventListener('submit', async event => {
+    event.preventDefault();
+    const activeMenu = currentMenu;
+
+    if (!activeMenu || activeMenu.source !== 'manual') {
+        setMenuStatus('Сначала выберите собственное меню.');
+        return;
+    }
+
+    const form = event.currentTarget;
+    const fields = new FormData(form);
+    const dish = {
+        name: fields.get('name'),
+        portion_weight_g: Number(fields.get('portion_weight_g')),
+        calories: Number(fields.get('calories')),
+        protein: Number(fields.get('protein')),
+        fat: Number(fields.get('fat')),
+        carbs: Number(fields.get('carbs'))
+    };
+    const submitButton = form.querySelector('button[type="submit"]');
+    submitButton.disabled = true;
+    setMenuStatus('Добавляем блюдо...', true);
+
+    try {
+        const response = await fetch(`/api/menus/${activeMenu.id}/dishes`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(dish)
+        });
+        const result = await response.json();
+
+        if (!response.ok) {
+            throw new Error(result.error || 'Не удалось добавить блюдо');
+        }
+
+        form.reset();
+        await loadMenus();
+        setMenuStatus(`Блюдо «${dish.name}» добавлено в меню.`);
+    } catch (error) {
+        setMenuStatus(error.message);
+    } finally {
+        submitButton.disabled = false;
+    }
+});
+
+async function deleteMenuDish(menuId, dish) {
+    if (!window.confirm(`Удалить «${dish.name}» из «Моего меню»?`)) {
+        return;
+    }
+
+    try {
+        const response = await fetch(
+            `/api/menus/${menuId}/dishes/${dish.id}`,
+            { method: 'DELETE' }
+        );
+        const result = await response.json();
+
+        if (!response.ok) {
+            throw new Error(result.error || 'Не удалось удалить блюдо');
+        }
+
+        await loadMenus();
+        setMenuStatus(`Блюдо «${dish.name}» удалено из «Моего меню».`);
+    } catch (error) {
+        setMenuStatus(error.message);
+    }
+}
+
+async function clearActiveMenu() {
+    const menu = currentMenu;
+
+    if (!menu || menuProcessing || menuLoading) {
+        return;
+    }
+
+    const confirmed = window.confirm(
+        `Удалить все сохранённые версии «${menu.name}» и их блюда? ` +
+        'Меню других источников и записи дневника останутся.'
+    );
+
+    if (!confirmed) {
+        return;
+    }
+
+    setMenuProcessing(true);
+    setMenuStatus(`Очищаем «${menu.name}»...`, true);
+
+    try {
+        const response = await fetch(
+            `/api/menus/source/${encodeURIComponent(menu.source)}`,
+            { method: 'DELETE' }
+        );
+        const result = await response.json();
+
+        if (!response.ok) {
+            throw new Error(result.error || 'Не удалось очистить меню');
+        }
+
+        await loadMenus();
+        setMenuStatus(
+            `Меню «${menu.name}» очищено. Удалено блюд: ${result.deleted_dishes}.`
+        );
+    } catch (error) {
+        setMenuStatus(error.message);
+    } finally {
+        setMenuProcessing(false);
     }
 }
 
@@ -217,9 +613,19 @@ function renderCatalog() {
     catalogList.innerHTML = '';
 
     if (filteredDishes.length === 0) {
-        catalogList.textContent = 'Ничего не найдено';
+        catalogList.textContent = !currentMenu
+            ? ({
+                url: 'Загрузите меню по ссылке, чтобы увидеть его блюда.',
+                upload: 'Загрузите изображение меню, чтобы увидеть распознанные блюда.',
+                manual: 'В «Моём меню» пока нет блюд.'
+            }[menuMode])
+            : searchValue
+                ? 'Ничего не найдено'
+                : 'В этом меню пока нет блюд.';
         return;
     }
+
+    const activeMenu = currentMenu;
 
     for (const dish of filteredDishes) {
         const item = document.createElement('div');
@@ -248,7 +654,7 @@ function renderCatalog() {
         description.appendChild(details);
 
         const isApproximate =
-            dish.nutrition_status !== 'menu' ||
+            !['menu', 'manual'].includes(dish.nutrition_status) ||
             dish.missing_fields.length > 0;
 
         if (isApproximate) {
@@ -319,6 +725,21 @@ function renderCatalog() {
         controls.appendChild(quantityInput);
         controls.appendChild(mealSelect);
         controls.appendChild(addButton);
+
+        if (activeMenu?.source === 'manual') {
+            const removeButton = document.createElement('button');
+            removeButton.type = 'button';
+            removeButton.className = 'remove-menu-dish';
+            removeButton.textContent = 'Удалить';
+            removeButton.setAttribute(
+                'aria-label',
+                `Удалить ${dish.name} из Моего меню`
+            );
+            removeButton.addEventListener('click', () =>
+                deleteMenuDish(activeMenu.id, dish)
+            );
+            controls.appendChild(removeButton);
+        }
 
         item.appendChild(description);
         item.appendChild(controls);
@@ -611,7 +1032,14 @@ async function init() {
     createCatalog();
 
     await loadGoals();
-    await loadMenu();
+    try {
+        await loadMenus();
+    } catch (error) {
+        setMenuStatus(error.message);
+        if (catalogList) {
+            catalogList.textContent = error.message;
+        }
+    }
     await loadDiary();
 }
 

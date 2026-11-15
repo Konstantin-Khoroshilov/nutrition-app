@@ -70,6 +70,95 @@
     <div id="stickyDailyTotals" class="sticky-daily-totals hidden"
       aria-live="polite"></div>
 
+    <!-- Выбор и создание меню -->
+    <section class="panel menu-manager">
+      <h2>Меню</h2>
+
+      <div class="menu-modes" role="group" aria-label="Способ добавления меню">
+        <button type="button" data-menu-mode="url" aria-pressed="true">
+          По ссылке
+        </button>
+        <button type="button" data-menu-mode="upload" aria-pressed="false">
+          Загрузить изображение
+        </button>
+        <button type="button" data-menu-mode="manual" aria-pressed="false">
+          Моё меню
+        </button>
+      </div>
+
+      <div class="menu-actions">
+        <button id="clear-menu-button" class="menu-clear-button" type="button" disabled>
+          Очистить меню
+        </button>
+      </div>
+
+      <form id="url-menu-form" class="menu-source-form">
+        <label>
+          Название меню
+          <input type="text" name="name" maxlength="100" required>
+        </label>
+        <label>
+          Ссылка на изображение меню
+          <input type="url" name="url" placeholder="https://..." required>
+        </label>
+        <button type="submit">Загрузить и распознать</button>
+      </form>
+
+      <form id="upload-menu-form" class="menu-source-form hidden">
+        <label>
+          Название меню
+          <input type="text" name="name" maxlength="100" required>
+        </label>
+        <label>
+          Изображение меню
+          <input type="file" name="image" accept="image/jpeg,image/png,image/webp"
+            required>
+        </label>
+        <button type="submit">Распознать изображение</button>
+      </form>
+
+      <div id="manual-menu-panel" class="menu-source-form hidden">
+        <p id="manual-menu-hint">
+          Добавленные блюда сохраняются в «Моём меню», пока вы их не удалите.
+        </p>
+        <form id="manual-dish-form" class="hidden">
+          <h3>Добавить блюдо</h3>
+          <label>
+            Название блюда
+            <input type="text" name="name" maxlength="200" required>
+          </label>
+          <div class="manual-nutrients">
+            <label>
+              Вес порции, г
+              <input type="number" name="portion_weight_g" min="0.1"
+                step="any" required>
+            </label>
+            <label>
+              Калории, ккал
+              <input type="number" name="calories" min="0" step="any" required>
+            </label>
+            <label>
+              Белки, г
+              <input type="number" name="protein" min="0" step="any" required>
+            </label>
+            <label>
+              Жиры, г
+              <input type="number" name="fat" min="0" step="any" required>
+            </label>
+            <label>
+              Углеводы, г
+              <input type="number" name="carbs" min="0" step="any" required>
+            </label>
+          </div>
+          <p class="form-hint">Укажите КБЖУ для одной порции.</p>
+          <button type="submit">Добавить блюдо в меню</button>
+        </form>
+      </div>
+
+      <p id="menuStatus" class="menu-status" role="status" aria-live="polite"
+        aria-busy="false"></p>
+    </section>
+
     <!-- Приёмы пищи -->
     <section class="panel">
       <h2>Приёмы пищи</h2>

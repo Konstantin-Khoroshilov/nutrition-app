@@ -372,6 +372,173 @@ header p {
     box-shadow: var(--shadow);
 }
 
+.menu-current-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin: -8px 0 14px;
+}
+
+.menu-current-info strong {
+    max-width: 280px;
+    overflow: hidden;
+    color: var(--green-900);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.menu-current-info small {
+    color: var(--ink-muted);
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.menu-modes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 18px 0 14px;
+}
+
+.menu-modes button {
+    padding: 9px 13px;
+    border: 1px solid #d7e6d7;
+    background: #edf5eb;
+    color: var(--green-700);
+    font-size: 13px;
+}
+
+.menu-modes button[aria-pressed="true"] {
+    border-color: var(--green-700);
+    background: var(--green-700);
+    color: #fff;
+}
+
+.menu-modes button:hover:not(:disabled) {
+    box-shadow: none;
+    transform: none;
+}
+
+.menu-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin: -4px 0 12px;
+}
+
+.menu-clear-button {
+    padding: 8px 12px;
+    border: 1px solid #e4c4bf;
+    background: #fff8f6;
+    color: #8d3f35;
+    font-size: 13px;
+}
+
+.menu-clear-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+}
+
+.menu-source-form {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: end;
+    gap: 13px;
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: #fbfcfa;
+}
+
+.menu-source-form.hidden,
+#manual-dish-form.hidden {
+    display: none;
+}
+
+.menu-source-form label {
+    display: block;
+    color: #4a5d53;
+    font-size: 13px;
+    font-weight: 650;
+}
+
+.menu-source-form input {
+    display: block;
+    width: 100%;
+    min-height: 42px;
+    margin-top: 6px;
+    padding: 9px 11px;
+    border: 1px solid #dce5dc;
+    border-radius: 10px;
+    background: #fff;
+    color: #263a30;
+}
+
+.menu-source-form > button,
+.menu-source-form > form > button {
+    justify-self: start;
+}
+
+#manual-menu-panel {
+    grid-template-columns: 1fr;
+}
+
+#manual-menu-hint,
+.form-hint,
+.menu-status {
+    margin: 2px 0;
+    color: var(--ink-muted);
+    font-size: 13px;
+}
+
+#manual-dish-form {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+}
+
+#manual-dish-form h3 {
+    margin: 0;
+    color: var(--green-900);
+    font-size: 16px;
+}
+
+.manual-nutrients {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.menu-status {
+    min-height: 1.5em;
+    margin-top: 12px;
+}
+
+.menu-status.is-loading {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.menu-status.is-loading::before {
+    width: 16px;
+    height: 16px;
+    flex: 0 0 16px;
+    border: 2px solid #dce8dd;
+    border-top-color: var(--green-700);
+    border-radius: 50%;
+    animation: menu-status-spin 0.8s linear infinite;
+    content: "";
+}
+
+@keyframes menu-status-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 .menu-catalog h2 {
     margin-top: 0;
 }
@@ -450,6 +617,19 @@ header p {
     cursor: not-allowed;
 }
 
+.catalog-controls .remove-menu-dish {
+    border: 1px solid #f0d7d2;
+    background: #fff8f6;
+    color: #a84c40;
+}
+
+.catalog-controls .remove-menu-dish:hover:not(:disabled) {
+    border-color: #e9bdb5;
+    background: #fff0ed;
+    box-shadow: none;
+    transform: none;
+}
+
 .meal-select {
     max-width: 145px;
     padding: 8px 10px;
@@ -474,6 +654,10 @@ header p {
 
     .catalog-controls {
         width: 100%;
+    }
+
+    .manual-nutrients {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .meal-select {
@@ -506,6 +690,30 @@ header p {
     .panel h2,
     .menu-catalog h2 {
         font-size: 18px;
+    }
+
+    .menu-current-info {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 2px;
+        margin-top: -8px;
+    }
+
+    .menu-current-info strong {
+        max-width: 100%;
+    }
+
+    .menu-current-info small {
+        white-space: normal;
+    }
+
+    .menu-source-form {
+        grid-template-columns: 1fr;
+        padding: 13px;
+    }
+
+    .manual-nutrients {
+        gap: 8px;
     }
 
     #goals-form {
@@ -562,5 +770,9 @@ header p {
     *::after {
         scroll-behavior: auto !important;
         transition-duration: 0.01ms !important;
+    }
+
+    .menu-status.is-loading::before {
+        animation: none;
     }
 }

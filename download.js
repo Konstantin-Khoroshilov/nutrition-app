@@ -1,24 +1,18 @@
 
-const fs = require('fs');
 const sharp = require('sharp');
-
-const URL = 'https://freshvote.ru/menu/000000009.jpg';
+const fs = require('fs');
+const { downloadImage } = require('./imageDownloader');
 
 async function downloadMenu() {
-    console.log('Загружаем меню...');
+    const sourceUrl = process.argv[2];
 
-    const response = await fetch(URL, {
-        cache: 'no-store',
-        headers: {
-            'Cache-Control': 'no-cache'
-        }
-    });
-
-    if (!response.ok) {
-        throw new Error(`Ошибка загрузки: ${response.status}`);
+    if (!sourceUrl) {
+        throw new Error('Передайте ссылку на изображение меню: node download.js <URL>');
     }
 
-    const buffer = Buffer.from(await response.arrayBuffer());
+    console.log('Загружаем меню...');
+
+    const { buffer } = await downloadImage(sourceUrl);
 
     const metadata = await sharp(buffer).metadata();
 
@@ -32,4 +26,7 @@ async function downloadMenu() {
     console.log('Файл сохранён: menu.jpg');
 }
 
-downloadMenu().catch(console.error);
+downloadMenu().catch(error => {
+    console.error('Ошибка загрузки:', error.message);
+    process.exitCode = 1;
+});
