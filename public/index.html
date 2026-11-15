@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Дневник питания</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="container">
+
+    <header>
+      <h1>Дневник питания</h1>
+      <p>Планирование и учёт питания</p>
+    </header>
+
+    <!-- Настройки целей -->
+    <section class="panel">
+      <h2>Мои дневные цели</h2>
+
+      <form id="goals-form">
+        <label>
+          Калории (ккал)
+          <input type="number" id="calories" min="1" step="any" required>
+        </label>
+
+        <label>
+          Белки (г)
+          <input type="number" id="protein" min="1" step="any" required>
+        </label>
+
+        <label>
+          Жиры (г)
+          <input type="number" id="fat" min="1" step="any" required>
+        </label>
+
+        <label>
+          Углеводы (г)
+          <input type="number" id="carbs" min="1" step="any" required>
+        </label>
+
+        <button type="submit">Сохранить цели</button>
+        <p id="status"></p>
+      </form>
+    </section>
+
+    <!-- Дата дневника -->
+    <section class="panel">
+      <h2>Дата дневника</h2>
+      <div class="date-navigation">
+        <button type="button" id="previousDay" aria-label="Предыдущий день"
+          title="Предыдущий день">←</button>
+        <input type="date" id="diaryDate">
+        <button type="button" id="nextDay" aria-label="Следующий день"
+          title="Следующий день">→</button>
+      </div>
+    </section>
+
+    <!-- Итоги -->
+    <section class="panel" id="dailyTotalsPanel">
+      <h2>Итоги за день</h2>
+      <div id="totals" class="totals"></div>
+
+      <p id="approximateWarning" class="warning hidden">
+        Внимание: некоторые показатели отсутствуют.
+        Итоги рассчитаны по известным данным и являются приблизительными.
+      </p>
+    </section>
+    <div id="stickyDailyTotals" class="sticky-daily-totals hidden"
+      aria-live="polite"></div>
+
+    <!-- Приёмы пищи -->
+    <section class="panel">
+      <h2>Приёмы пищи</h2>
+      <div id="meals"></div>
+    </section>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

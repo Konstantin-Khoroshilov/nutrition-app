@@ -1,0 +1,2863 @@
+{
+  "source": "Freshvote",
+  "source_image": "menu.jpg",
+  "recognized_at": "2026-11-03T19:09:33.945Z",
+  "model": "gemini-3-flash-preview",
+  "total_dishes": 78,
+  "dishes": [
+    {
+      "name": "Каша рисовая молочная со сливочным маслом/Rice porridge with milk and butter",
+      "portion_weight_g": 200,
+      "calories_per_100g": 131,
+      "protein_per_100g": 2.4,
+      "fat_per_100g": 5,
+      "carbs_per_100g": 19.1,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 200,
+        "calories": 262,
+        "protein": 4.8,
+        "fat": 10,
+        "carbs": 38.2
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Каша 4 злака на кокосовом молоке с сухофруктами без сахара/Four grain coconut porridge with dried fruits without sugar",
+      "portion_weight_g": 200,
+      "calories_per_100g": 64,
+      "protein_per_100g": 1.2,
+      "fat_per_100g": 2.4,
+      "carbs_per_100g": 9.3,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 200,
+        "calories": 128,
+        "protein": 2.4,
+        "fat": 4.8,
+        "carbs": 18.6
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Сырники творожные/Cottage cheese pancakes",
+      "portion_weight_g": 150,
+      "calories_per_100g": 219,
+      "protein_per_100g": 14.3,
+      "fat_per_100g": 7.9,
+      "carbs_per_100g": 22.6,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 150,
+        "calories": 328.5,
+        "protein": 21.5,
+        "fat": 11.9,
+        "carbs": 33.9
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Запеканка творожная с черной смородиной/Cottage cheese casserole with black currant",
+      "portion_weight_g": 150,
+      "calories_per_100g": 182,
+      "protein_per_100g": 12.7,
+      "fat_per_100g": 6.5,
+      "carbs_per_100g": 18.1,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 150,
+        "calories": 273,
+        "protein": 19,
+        "fat": 9.8,
+        "carbs": 27.2
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Сосиска отварная/Boiled sausage",
+      "portion_weight_g": 65,
+      "calories_per_100g": 205,
+      "protein_per_100g": 9,
+      "fat_per_100g": 18.8,
+      "carbs_per_100g": null,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": null,
+      "calculation_status": "incomplete_data",
+      "missing_fields": [
+        "carbs_per_100g"
+      ]
+    },
+    {
+      "name": "Блинчик с куриным жюльеном/Crepe with chicken julienne",
+      "portion_weight_g": 85,
+      "calories_per_100g": 217,
+      "protein_per_100g": 11.8,
+      "fat_per_100g": 13.1,
+      "carbs_per_100g": 12.9,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 85,
+        "calories": 184.5,
+        "protein": 10,
+        "fat": 11.1,
+        "carbs": 11
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Блинчик с клубникой/Strawberry crepe",
+      "portion_weight_g": 85,
+      "calories_per_100g": 144,
+      "protein_per_100g": 2.3,
+      "fat_per_100g": 4.6,
+      "carbs_per_100g": 23.3,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 85,
+        "calories": 122.4,
+        "protein": 2,
+        "fat": 3.9,
+        "carbs": 19.8
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Омлет/Omelette",
+      "portion_weight_g": 150,
+      "calories_per_100g": 97,
+      "protein_per_100g": 7.4,
+      "fat_per_100g": 6.5,
+      "carbs_per_100g": 2.4,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 150,
+        "calories": 145.5,
+        "protein": 11.1,
+        "fat": 9.8,
+        "carbs": 3.6
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Лаваш с сыром и пряными травами, обжаренный в яйце/Egg fried lavash bread with cheese and herbs",
+      "portion_weight_g": 130,
+      "calories_per_100g": 301,
+      "protein_per_100g": 14.4,
+      "fat_per_100g": 20.2,
+      "carbs_per_100g": 15.4,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 130,
+        "calories": 391.3,
+        "protein": 18.7,
+        "fat": 26.3,
+        "carbs": 20
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Горячий бутерброд с яйцом и сыром/Egg and cheese hot sandwich",
+      "portion_weight_g": 115,
+      "calories_per_100g": 287,
+      "protein_per_100g": 10.3,
+      "fat_per_100g": 20.6,
+      "carbs_per_100g": 15.2,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 115,
+        "calories": 330,
+        "protein": 11.8,
+        "fat": 23.7,
+        "carbs": 17.5
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Хот Дог датский/Hot Dog danish",
+      "portion_weight_g": 180,
+      "calories_per_100g": 318,
+      "protein_per_100g": 7.6,
+      "fat_per_100g": 21.6,
+      "carbs_per_100g": 23.3,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 180,
+        "calories": 572.4,
+        "protein": 13.7,
+        "fat": 38.9,
+        "carbs": 41.9
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Кесадилья с курицей/Quesadilla with chicken",
+      "portion_weight_g": 110,
+      "calories_per_100g": 186,
+      "protein_per_100g": 9.3,
+      "fat_per_100g": 11.3,
+      "carbs_per_100g": 11.7,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 110,
+        "calories": 204.6,
+        "protein": 10.2,
+        "fat": 12.4,
+        "carbs": 12.9
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Филе куриное приготовленное на пару/Steamed chicken fillet",
+      "portion_weight_g": 100,
+      "calories_per_100g": 103,
+      "protein_per_100g": 20.1,
+      "fat_per_100g": 2.4,
+      "carbs_per_100g": 0.3,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 100,
+        "calories": 103,
+        "protein": 20.1,
+        "fat": 2.4,
+        "carbs": 0.3
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Фасоль стручковая припущенная/Poached French beans",
+      "portion_weight_g": 150,
+      "calories_per_100g": 30,
+      "protein_per_100g": 1.7,
+      "fat_per_100g": 0.8,
+      "carbs_per_100g": 4.2,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 150,
+        "calories": 45,
+        "protein": 2.6,
+        "fat": 1.2,
+        "carbs": 6.3
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Семга/Mild-cured salmon",
+      "portion_weight_g": 30,
+      "calories_per_100g": 153,
+      "protein_per_100g": 20,
+      "fat_per_100g": 8.1,
+      "carbs_per_100g": null,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": null,
+      "calculation_status": "incomplete_data",
+      "missing_fields": [
+        "carbs_per_100g"
+      ]
+    },
+    {
+      "name": "Какао с молоком/Milk cocoa",
+      "portion_weight_g": 200,
+      "calories_per_100g": 94,
+      "protein_per_100g": 4.1,
+      "fat_per_100g": 3.8,
+      "carbs_per_100g": 10.8,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 200,
+        "calories": 188,
+        "protein": 8.2,
+        "fat": 7.6,
+        "carbs": 21.6
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Чай апельсиновый с корицей/Orange and cinnamon tea",
+      "portion_weight_g": 200,
+      "calories_per_100g": 55,
+      "protein_per_100g": 0.4,
+      "fat_per_100g": 0.1,
+      "carbs_per_100g": 13.2,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 200,
+        "calories": 110,
+        "protein": 0.8,
+        "fat": 0.2,
+        "carbs": 26.4
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Напиток из вишни/Cherry drink",
+      "portion_weight_g": 200,
+      "calories_per_100g": 46,
+      "protein_per_100g": 0.2,
+      "fat_per_100g": 0,
+      "carbs_per_100g": 11.3,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 200,
+        "calories": 92,
+        "protein": 0.4,
+        "fat": 0,
+        "carbs": 22.6
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Взвар из сухофруктов без сахара/Dried fruit drink (sugar-free)",
+      "portion_weight_g": 200,
+      "calories_per_100g": 19,
+      "protein_per_100g": 0.2,
+      "fat_per_100g": 0,
+      "carbs_per_100g": 4.7,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 200,
+        "calories": 38,
+        "protein": 0.4,
+        "fat": 0,
+        "carbs": 9.4
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Салат из тунца с огурцами, яйцом и айсбергом/Tuna, cucumber and egg salad",
+      "portion_weight_g": 120,
+      "calories_per_100g": 237,
+      "protein_per_100g": 7.7,
+      "fat_per_100g": 22.2,
+      "carbs_per_100g": 1.4,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 120,
+        "calories": 284.4,
+        "protein": 9.2,
+        "fat": 26.6,
+        "carbs": 1.7
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Салат из свиной вырезки с перцем с маринованным огурцом и майонезом/Pork, bell pepper and pickles salad with mayonnaise",
+      "portion_weight_g": 120,
+      "calories_per_100g": 211,
+      "protein_per_100g": 4.6,
+      "fat_per_100g": 18.5,
+      "carbs_per_100g": 6.5,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 120,
+        "calories": 253.2,
+        "protein": 5.5,
+        "fat": 22.2,
+        "carbs": 7.8
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Салат из свежей тыквы с яблоком и сметаной/Pumpkin and apple salad with sour cream",
+      "portion_weight_g": 120,
+      "calories_per_100g": 74,
+      "protein_per_100g": 1.1,
+      "fat_per_100g": 3.5,
+      "carbs_per_100g": 9.5,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 120,
+        "calories": 88.8,
+        "protein": 1.3,
+        "fat": 4.2,
+        "carbs": 11.4
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Салат из морской капусты с кунжутом/Seaweed Salad with Sesame Seeds",
+      "portion_weight_g": 120,
+      "calories_per_100g": 135,
+      "protein_per_100g": 1.5,
+      "fat_per_100g": 11.5,
+      "carbs_per_100g": 6.3,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 120,
+        "calories": 162,
+        "protein": 1.8,
+        "fat": 13.8,
+        "carbs": 7.6
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Суп-харчо с говядиной/Beef kharcho soup",
+      "portion_weight_g": 250,
+      "calories_per_100g": 60,
+      "protein_per_100g": 2.9,
+      "fat_per_100g": 3.4,
+      "carbs_per_100g": 4.6,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 250,
+        "calories": 150,
+        "protein": 7.3,
+        "fat": 8.5,
+        "carbs": 11.5
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Суп картофельный с грибами/Mushroom and potato soup",
+      "portion_weight_g": 250,
+      "calories_per_100g": 33,
+      "protein_per_100g": 0.9,
+      "fat_per_100g": 1.8,
+      "carbs_per_100g": 3.3,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 250,
+        "calories": 82.5,
+        "protein": 2.3,
+        "fat": 4.5,
+        "carbs": 8.3
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Бульон говяжий/Beef broth",
+      "portion_weight_g": 250,
+      "calories_per_100g": 35,
+      "protein_per_100g": 3.6,
+      "fat_per_100g": 1.2,
+      "carbs_per_100g": 2.6,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 250,
+        "calories": 87.5,
+        "protein": 9,
+        "fat": 3,
+        "carbs": 6.5
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Зразы рыбные, фаршированные зеленым маслом/Fish rolls stuffed with green butter",
+      "portion_weight_g": 100,
+      "calories_per_100g": 238,
+      "protein_per_100g": 9.8,
+      "fat_per_100g": 17.7,
+      "carbs_per_100g": 9.9,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 100,
+        "calories": 238,
+        "protein": 9.8,
+        "fat": 17.7,
+        "carbs": 9.9
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Бифштекс рубленый с луком фри/Minced meat patty with crisp fried onion",
+      "portion_weight_g": 90,
+      "calories_per_100g": 182,
+      "protein_per_100g": 12,
+      "fat_per_100g": 14.1,
+      "carbs_per_100g": 1.6,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 90,
+        "calories": 163.8,
+        "protein": 10.8,
+        "fat": 12.7,
+        "carbs": 1.4
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Куриные ножки Тандури/Spicy Tandoori chicken legs",
+      "portion_weight_g": 150,
+      "calories_per_100g": 216,
+      "protein_per_100g": 15,
+      "fat_per_100g": 17.1,
+      "carbs_per_100g": 0.3,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 150,
+        "calories": 324,
+        "protein": 22.5,
+        "fat": 25.7,
+        "carbs": 0.5
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Свинина в соусе том ям/Tom Yum pork",
+      "portion_weight_g": 150,
+      "calories_per_100g": 819,
+      "protein_per_100g": 18.6,
+      "fat_per_100g": 81,
+      "carbs_per_100g": 3.9,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 150,
+        "calories": 1228.5,
+        "protein": 27.9,
+        "fat": 121.5,
+        "carbs": 5.9
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Курица фаршированная яблоками/Chicken stuffed with apples",
+      "portion_weight_g": 180,
+      "calories_per_100g": 229,
+      "protein_per_100g": 13.2,
+      "fat_per_100g": 16.1,
+      "carbs_per_100g": 7.7,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 180,
+        "calories": 412.2,
+        "protein": 23.8,
+        "fat": 29,
+        "carbs": 13.9
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Филе индейки на пару/Steamed turkey fillet",
+      "portion_weight_g": 100,
+      "calories_per_100g": 108,
+      "protein_per_100g": 25,
+      "fat_per_100g": 0.9,
+      "carbs_per_100g": null,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": null,
+      "calculation_status": "incomplete_data",
+      "missing_fields": [
+        "carbs_per_100g"
+      ]
+    },
+    {
+      "name": "Сайда припущенная/Poached pollock",
+      "portion_weight_g": 100,
+      "calories_per_100g": 67,
+      "protein_per_100g": 15.6,
+      "fat_per_100g": 0.4,
+      "carbs_per_100g": 0.2,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 100,
+        "calories": 67,
+        "protein": 15.6,
+        "fat": 0.4,
+        "carbs": 0.2
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Кус-кус с овощами/Vegetable couscous",
+      "portion_weight_g": 180,
+      "calories_per_100g": 169,
+      "protein_per_100g": 4.3,
+      "fat_per_100g": 5.5,
+      "carbs_per_100g": 25.6,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 180,
+        "calories": 304.2,
+        "protein": 7.7,
+        "fat": 9.9,
+        "carbs": 46.1
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Картофель печеный/Roasted potatoes",
+      "portion_weight_g": 150,
+      "calories_per_100g": 152,
+      "protein_per_100g": 3,
+      "fat_per_100g": 3.4,
+      "carbs_per_100g": 27.2,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 150,
+        "calories": 228,
+        "protein": 4.5,
+        "fat": 5.1,
+        "carbs": 40.8
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Фузилли/Fusilli",
+      "portion_weight_g": 150,
+      "calories_per_100g": 157,
+      "protein_per_100g": 4.5,
+      "fat_per_100g": 2.6,
+      "carbs_per_100g": 29,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 150,
+        "calories": 235.5,
+        "protein": 6.8,
+        "fat": 3.9,
+        "carbs": 43.5
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Овощи гриль/Grilled vegetables",
+      "portion_weight_g": 150,
+      "calories_per_100g": 86,
+      "protein_per_100g": 1.3,
+      "fat_per_100g": 6.2,
+      "carbs_per_100g": 6.3,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 150,
+        "calories": 129,
+        "protein": 2,
+        "fat": 9.3,
+        "carbs": 9.5
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Брокколи припущенная /Poached broccoli",
+      "portion_weight_g": 150,
+      "calories_per_100g": 56,
+      "protein_per_100g": 3.9,
+      "fat_per_100g": 2.7,
+      "carbs_per_100g": 3.9,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 150,
+        "calories": 84,
+        "protein": 5.9,
+        "fat": 4.1,
+        "carbs": 5.9
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Чай пакетированный /Niktea tea (pocket)",
+      "portion_weight_g": 10,
+      "calories_per_100g": 154,
+      "protein_per_100g": 20,
+      "fat_per_100g": 5.1,
+      "carbs_per_100g": 6.9,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 10,
+        "calories": 15.4,
+        "protein": 2,
+        "fat": 0.5,
+        "carbs": 0.7
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Салат из свежей тыквы с яблоком и сметаной/Pumpkin and apple salad with sour cream",
+      "portion_weight_g": null,
+      "calories_per_100g": null,
+      "protein_per_100g": null,
+      "fat_per_100g": null,
+      "carbs_per_100g": null,
+      "nutrition_provenance": {},
+      "nutrition_status": "menu",
+      "nutrition_per_portion": null,
+      "calculation_status": "incomplete_data",
+      "missing_fields": [
+        "portion_weight_g",
+        "calories_per_100g",
+        "protein_per_100g",
+        "fat_per_100g",
+        "carbs_per_100g"
+      ]
+    },
+    {
+      "name": "Салат из морской капусты с кунжутом/Seaweed Salad with Sesame Seeds",
+      "portion_weight_g": null,
+      "calories_per_100g": null,
+      "protein_per_100g": null,
+      "fat_per_100g": null,
+      "carbs_per_100g": null,
+      "nutrition_provenance": {},
+      "nutrition_status": "menu",
+      "nutrition_per_portion": null,
+      "calculation_status": "incomplete_data",
+      "missing_fields": [
+        "portion_weight_g",
+        "calories_per_100g",
+        "protein_per_100g",
+        "fat_per_100g",
+        "carbs_per_100g"
+      ]
+    },
+    {
+      "name": "Суп картофельный с грибами/Mushroom and potato soup",
+      "portion_weight_g": null,
+      "calories_per_100g": null,
+      "protein_per_100g": null,
+      "fat_per_100g": null,
+      "carbs_per_100g": null,
+      "nutrition_provenance": {},
+      "nutrition_status": "menu",
+      "nutrition_per_portion": null,
+      "calculation_status": "incomplete_data",
+      "missing_fields": [
+        "portion_weight_g",
+        "calories_per_100g",
+        "protein_per_100g",
+        "fat_per_100g",
+        "carbs_per_100g"
+      ]
+    },
+    {
+      "name": "Бульон говяжий/Beef broth",
+      "portion_weight_g": null,
+      "calories_per_100g": null,
+      "protein_per_100g": null,
+      "fat_per_100g": null,
+      "carbs_per_100g": null,
+      "nutrition_provenance": {},
+      "nutrition_status": "menu",
+      "nutrition_per_portion": null,
+      "calculation_status": "incomplete_data",
+      "missing_fields": [
+        "portion_weight_g",
+        "calories_per_100g",
+        "protein_per_100g",
+        "fat_per_100g",
+        "carbs_per_100g"
+      ]
+    },
+    {
+      "name": "Куриные ножки Тандури/Spicy Tandoori chicken legs",
+      "portion_weight_g": null,
+      "calories_per_100g": null,
+      "protein_per_100g": null,
+      "fat_per_100g": null,
+      "carbs_per_100g": null,
+      "nutrition_provenance": {},
+      "nutrition_status": "menu",
+      "nutrition_per_portion": null,
+      "calculation_status": "incomplete_data",
+      "missing_fields": [
+        "portion_weight_g",
+        "calories_per_100g",
+        "protein_per_100g",
+        "fat_per_100g",
+        "carbs_per_100g"
+      ]
+    },
+    {
+      "name": "Кус-кус с овощами/Vegetable couscous",
+      "portion_weight_g": null,
+      "calories_per_100g": null,
+      "protein_per_100g": null,
+      "fat_per_100g": null,
+      "carbs_per_100g": null,
+      "nutrition_provenance": {},
+      "nutrition_status": "menu",
+      "nutrition_per_portion": null,
+      "calculation_status": "incomplete_data",
+      "missing_fields": [
+        "portion_weight_g",
+        "calories_per_100g",
+        "protein_per_100g",
+        "fat_per_100g",
+        "carbs_per_100g"
+      ]
+    },
+    {
+      "name": "Фузилли/Fusilli",
+      "portion_weight_g": null,
+      "calories_per_100g": null,
+      "protein_per_100g": null,
+      "fat_per_100g": null,
+      "carbs_per_100g": null,
+      "nutrition_provenance": {},
+      "nutrition_status": "menu",
+      "nutrition_per_portion": null,
+      "calculation_status": "incomplete_data",
+      "missing_fields": [
+        "portion_weight_g",
+        "calories_per_100g",
+        "protein_per_100g",
+        "fat_per_100g",
+        "carbs_per_100g"
+      ]
+    },
+    {
+      "name": "Напиток из вишни/Cherry drink",
+      "portion_weight_g": null,
+      "calories_per_100g": null,
+      "protein_per_100g": null,
+      "fat_per_100g": null,
+      "carbs_per_100g": null,
+      "nutrition_provenance": {},
+      "nutrition_status": "menu",
+      "nutrition_per_portion": null,
+      "calculation_status": "incomplete_data",
+      "missing_fields": [
+        "portion_weight_g",
+        "calories_per_100g",
+        "protein_per_100g",
+        "fat_per_100g",
+        "carbs_per_100g"
+      ]
+    },
+    {
+      "name": "Взвар из сухофруктов без сахара/Dried fruit drink (sugar-free)",
+      "portion_weight_g": null,
+      "calories_per_100g": null,
+      "protein_per_100g": null,
+      "fat_per_100g": null,
+      "carbs_per_100g": null,
+      "nutrition_provenance": {},
+      "nutrition_status": "menu",
+      "nutrition_per_portion": null,
+      "calculation_status": "incomplete_data",
+      "missing_fields": [
+        "portion_weight_g",
+        "calories_per_100g",
+        "protein_per_100g",
+        "fat_per_100g",
+        "carbs_per_100g"
+      ]
+    },
+    {
+      "name": "Чай пакетированный /Niktea tea (pocket)",
+      "portion_weight_g": null,
+      "calories_per_100g": null,
+      "protein_per_100g": null,
+      "fat_per_100g": null,
+      "carbs_per_100g": null,
+      "nutrition_provenance": {},
+      "nutrition_status": "menu",
+      "nutrition_per_portion": null,
+      "calculation_status": "incomplete_data",
+      "missing_fields": [
+        "portion_weight_g",
+        "calories_per_100g",
+        "protein_per_100g",
+        "fat_per_100g",
+        "carbs_per_100g"
+      ]
+    },
+    {
+      "name": "Яичница глазунья/Fried eggs",
+      "portion_weight_g": 80,
+      "calories_per_100g": 177,
+      "protein_per_100g": 11.5,
+      "fat_per_100g": 14.2,
+      "carbs_per_100g": 0.8,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 80,
+        "calories": 141.6,
+        "protein": 9.2,
+        "fat": 11.4,
+        "carbs": 0.6
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Ветчина/Ham",
+      "portion_weight_g": 25,
+      "calories_per_100g": 138,
+      "protein_per_100g": 12,
+      "fat_per_100g": 10,
+      "carbs_per_100g": null,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": null,
+      "calculation_status": "incomplete_data",
+      "missing_fields": [
+        "carbs_per_100g"
+      ]
+    },
+    {
+      "name": "Сыр/Cheese",
+      "portion_weight_g": 25,
+      "calories_per_100g": 351,
+      "protein_per_100g": 26,
+      "fat_per_100g": 27.4,
+      "carbs_per_100g": null,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": null,
+      "calculation_status": "incomplete_data",
+      "missing_fields": [
+        "carbs_per_100g"
+      ]
+    },
+    {
+      "name": "Помидоры/Tomatoes",
+      "portion_weight_g": 50,
+      "calories_per_100g": 21,
+      "protein_per_100g": 1.1,
+      "fat_per_100g": 0.2,
+      "carbs_per_100g": 3.8,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 50,
+        "calories": 10.5,
+        "protein": 0.6,
+        "fat": 0.1,
+        "carbs": 1.9
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Перец болгарский/Bell pepper",
+      "portion_weight_g": 30,
+      "calories_per_100g": 26,
+      "protein_per_100g": 1.3,
+      "fat_per_100g": null,
+      "carbs_per_100g": 5.3,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": null,
+      "calculation_status": "incomplete_data",
+      "missing_fields": [
+        "fat_per_100g"
+      ]
+    },
+    {
+      "name": "Грибы жареные/Sauteed mushrooms",
+      "portion_weight_g": 20,
+      "calories_per_100g": 27,
+      "protein_per_100g": 4.3,
+      "fat_per_100g": 1,
+      "carbs_per_100g": 0.1,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 20,
+        "calories": 5.4,
+        "protein": 0.9,
+        "fat": 0.2,
+        "carbs": 0
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Бекон жареный/Fried bacon",
+      "portion_weight_g": 10,
+      "calories_per_100g": 444,
+      "protein_per_100g": 10,
+      "fat_per_100g": 44,
+      "carbs_per_100g": 2.1,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 10,
+        "calories": 44.4,
+        "protein": 1,
+        "fat": 4.4,
+        "carbs": 0.2
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Зелень/Dill and parsley",
+      "portion_weight_g": 2,
+      "calories_per_100g": 49,
+      "protein_per_100g": 3.7,
+      "fat_per_100g": 0.4,
+      "carbs_per_100g": 7.6,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 2,
+        "calories": 1,
+        "protein": 0.1,
+        "fat": 0,
+        "carbs": 0.2
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Крэп/Extra crepe",
+      "portion_weight_g": 80,
+      "calories_per_100g": 188,
+      "protein_per_100g": 4.9,
+      "fat_per_100g": 9.6,
+      "carbs_per_100g": 20.6,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 80,
+        "calories": 150.4,
+        "protein": 3.9,
+        "fat": 7.7,
+        "carbs": 16.5
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Жюльен куриный/Chicken julienne",
+      "portion_weight_g": 50,
+      "calories_per_100g": 201,
+      "protein_per_100g": 15.3,
+      "fat_per_100g": 14.1,
+      "carbs_per_100g": 3.2,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 50,
+        "calories": 100.5,
+        "protein": 7.7,
+        "fat": 7.1,
+        "carbs": 1.6
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Жюльен грибной/Mushroom julienne",
+      "portion_weight_g": 50,
+      "calories_per_100g": 206,
+      "protein_per_100g": 5.7,
+      "fat_per_100g": 18.3,
+      "carbs_per_100g": 4.6,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 50,
+        "calories": 103,
+        "protein": 2.9,
+        "fat": 9.2,
+        "carbs": 2.3
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Ветчина/Сыр/Ham/cheese",
+      "portion_weight_g": 50,
+      "calories_per_100g": 223,
+      "protein_per_100g": 17.6,
+      "fat_per_100g": 17,
+      "carbs_per_100g": null,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": null,
+      "calculation_status": "incomplete_data",
+      "missing_fields": [
+        "carbs_per_100g"
+      ]
+    },
+    {
+      "name": "Фета/Feta",
+      "portion_weight_g": 50,
+      "calories_per_100g": 235,
+      "protein_per_100g": 7.2,
+      "fat_per_100g": 22,
+      "carbs_per_100g": 2,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 50,
+        "calories": 117.5,
+        "protein": 3.6,
+        "fat": 11,
+        "carbs": 1
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Творог/Cottage cheese",
+      "portion_weight_g": 50,
+      "calories_per_100g": 170,
+      "protein_per_100g": 17.6,
+      "fat_per_100g": 8.8,
+      "carbs_per_100g": 4.9,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 50,
+        "calories": 85,
+        "protein": 8.8,
+        "fat": 4.4,
+        "carbs": 2.5
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Перец болгарский/",
+      "portion_weight_g": 100,
+      "calories_per_100g": 26,
+      "protein_per_100g": 1.3,
+      "fat_per_100g": null,
+      "carbs_per_100g": 5.3,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": null,
+      "calculation_status": "incomplete_data",
+      "missing_fields": [
+        "fat_per_100g"
+      ]
+    },
+    {
+      "name": "Помидоры/",
+      "portion_weight_g": 100,
+      "calories_per_100g": 21,
+      "protein_per_100g": 1.1,
+      "fat_per_100g": 0.2,
+      "carbs_per_100g": 3.8,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 100,
+        "calories": 21,
+        "protein": 1.1,
+        "fat": 0.2,
+        "carbs": 3.8
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Огурцы/",
+      "portion_weight_g": 100,
+      "calories_per_100g": 14,
+      "protein_per_100g": 0.8,
+      "fat_per_100g": 0.1,
+      "carbs_per_100g": 2.5,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 100,
+        "calories": 14,
+        "protein": 0.8,
+        "fat": 0.1,
+        "carbs": 2.5
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Айсберг/",
+      "portion_weight_g": 100,
+      "calories_per_100g": 14,
+      "protein_per_100g": 0.9,
+      "fat_per_100g": 0.1,
+      "carbs_per_100g": 2.3,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 100,
+        "calories": 14,
+        "protein": 0.9,
+        "fat": 0.1,
+        "carbs": 2.3
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Шпинат/",
+      "portion_weight_g": 100,
+      "calories_per_100g": 22,
+      "protein_per_100g": 2.9,
+      "fat_per_100g": 0.3,
+      "carbs_per_100g": 2,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 100,
+        "calories": 22,
+        "protein": 2.9,
+        "fat": 0.3,
+        "carbs": 2
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Фетаки/",
+      "portion_weight_g": 100,
+      "calories_per_100g": 235,
+      "protein_per_100g": 7.2,
+      "fat_per_100g": 22,
+      "carbs_per_100g": 2,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 100,
+        "calories": 235,
+        "protein": 7.2,
+        "fat": 22,
+        "carbs": 2
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Ананасы/",
+      "portion_weight_g": 100,
+      "calories_per_100g": 49,
+      "protein_per_100g": 0.4,
+      "fat_per_100g": 0.2,
+      "carbs_per_100g": 11.5,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 100,
+        "calories": 49,
+        "protein": 0.4,
+        "fat": 0.2,
+        "carbs": 11.5
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Грейпфруты/",
+      "portion_weight_g": 100,
+      "calories_per_100g": 31,
+      "protein_per_100g": 0.7,
+      "fat_per_100g": 0.2,
+      "carbs_per_100g": 6.5,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 100,
+        "calories": 31,
+        "protein": 0.7,
+        "fat": 0.2,
+        "carbs": 6.5
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Киви/",
+      "portion_weight_g": 100,
+      "calories_per_100g": 39,
+      "protein_per_100g": 0.8,
+      "fat_per_100g": 0.4,
+      "carbs_per_100g": 8.1,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 100,
+        "calories": 39,
+        "protein": 0.8,
+        "fat": 0.4,
+        "carbs": 8.1
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Греческий салат с гигантскими маслинами сыром и орегано/Greek salad with large black olives, cheese and oregano",
+      "portion_weight_g": 150,
+      "calories_per_100g": 144,
+      "protein_per_100g": 2.2,
+      "fat_per_100g": 13.2,
+      "carbs_per_100g": 4,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 150,
+        "calories": 216,
+        "protein": 3.3,
+        "fat": 19.8,
+        "carbs": 6
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Куриное филе Су-вид/Turkey broth with egg",
+      "portion_weight_g": 100,
+      "calories_per_100g": 141,
+      "protein_per_100g": 23.2,
+      "fat_per_100g": 5.3,
+      "carbs_per_100g": 0.3,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 100,
+        "calories": 141,
+        "protein": 23.2,
+        "fat": 5.3,
+        "carbs": 0.3
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Судак маринованный в соевом соусе Су-вид/Su-view pickled pike perch in soy sauce",
+      "portion_weight_g": 100,
+      "calories_per_100g": 96,
+      "protein_per_100g": 20.5,
+      "fat_per_100g": 1,
+      "carbs_per_100g": 1.4,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 100,
+        "calories": 96,
+        "protein": 20.5,
+        "fat": 1,
+        "carbs": 1.4
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Цукини на гриле/Grilled zucchini half",
+      "portion_weight_g": 150,
+      "calories_per_100g": 60,
+      "protein_per_100g": 1,
+      "fat_per_100g": 3.4,
+      "carbs_per_100g": 6.4,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 150,
+        "calories": 90,
+        "protein": 1.5,
+        "fat": 5.1,
+        "carbs": 9.6
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Батат запеченый с прованскими травами/Batat potatoes baked with Provencal herbs",
+      "portion_weight_g": 150,
+      "calories_per_100g": 77,
+      "protein_per_100g": 2,
+      "fat_per_100g": 0.1,
+      "carbs_per_100g": 17,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 150,
+        "calories": 115.5,
+        "protein": 3,
+        "fat": 0.2,
+        "carbs": 25.5
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    },
+    {
+      "name": "Стейк из красной капусты с апельсиновой заправкой/Red cabbage steak with orange dressing",
+      "portion_weight_g": 180,
+      "calories_per_100g": 173,
+      "protein_per_100g": 0.6,
+      "fat_per_100g": 17.1,
+      "carbs_per_100g": 4.3,
+      "nutrition_provenance": {
+        "portion_weight_g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "calories_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "protein_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "fat_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        },
+        "carbs_per_100g": {
+          "type": "menu",
+          "source_name": "Freshvote"
+        }
+      },
+      "nutrition_status": "menu",
+      "nutrition_per_portion": {
+        "weight_g": 180,
+        "calories": 311.4,
+        "protein": 1.1,
+        "fat": 30.8,
+        "carbs": 7.7
+      },
+      "calculation_status": "calculated",
+      "missing_fields": []
+    }
+  ],
+  "calculated_at": "2026-11-04T09:30:23.989Z",
+  "calculated_count": 60,
+  "incomplete_count": 18,
+  "nutrition_status_counts": {
+    "menu": 78,
+    "reference": 0,
+    "estimated": 0
+  }
+}

@@ -1,0 +1,631 @@
+{
+  "source": "Freshvote",
+  "recognized_at": "2026-11-03T19:09:33.944Z",
+  "total_dishes": 78,
+  "dishes": [
+    {
+      "name": "Каша рисовая молочная со сливочным маслом/Rice porridge with milk and butter",
+      "portion_weight_g": 200,
+      "calories_per_100g": 131,
+      "protein_per_100g": 2.4,
+      "fat_per_100g": 5,
+      "carbs_per_100g": 19.1
+    },
+    {
+      "name": "Каша 4 злака на кокосовом молоке с сухофруктами без сахара/Four grain coconut porridge with dried fruits without sugar",
+      "portion_weight_g": 200,
+      "calories_per_100g": 64,
+      "protein_per_100g": 1.2,
+      "fat_per_100g": 2.4,
+      "carbs_per_100g": 9.3
+    },
+    {
+      "name": "Сырники творожные/Cottage cheese pancakes",
+      "portion_weight_g": 150,
+      "calories_per_100g": 219,
+      "protein_per_100g": 14.3,
+      "fat_per_100g": 7.9,
+      "carbs_per_100g": 22.6
+    },
+    {
+      "name": "Запеканка творожная с черной смородиной/Cottage cheese casserole with black currant",
+      "portion_weight_g": 150,
+      "calories_per_100g": 182,
+      "protein_per_100g": 12.7,
+      "fat_per_100g": 6.5,
+      "carbs_per_100g": 18.1
+    },
+    {
+      "name": "Сосиска отварная/Boiled sausage",
+      "portion_weight_g": 65,
+      "calories_per_100g": 205,
+      "protein_per_100g": 9,
+      "fat_per_100g": 18.8,
+      "carbs_per_100g": null
+    },
+    {
+      "name": "Блинчик с куриным жюльеном/Crepe with chicken julienne",
+      "portion_weight_g": 85,
+      "calories_per_100g": 217,
+      "protein_per_100g": 11.8,
+      "fat_per_100g": 13.1,
+      "carbs_per_100g": 12.9
+    },
+    {
+      "name": "Блинчик с клубникой/Strawberry crepe",
+      "portion_weight_g": 85,
+      "calories_per_100g": 144,
+      "protein_per_100g": 2.3,
+      "fat_per_100g": 4.6,
+      "carbs_per_100g": 23.3
+    },
+    {
+      "name": "Омлет/Omelette",
+      "portion_weight_g": 150,
+      "calories_per_100g": 97,
+      "protein_per_100g": 7.4,
+      "fat_per_100g": 6.5,
+      "carbs_per_100g": 2.4
+    },
+    {
+      "name": "Лаваш с сыром и пряными травами, обжаренный в яйце/Egg fried lavash bread with cheese and herbs",
+      "portion_weight_g": 130,
+      "calories_per_100g": 301,
+      "protein_per_100g": 14.4,
+      "fat_per_100g": 20.2,
+      "carbs_per_100g": 15.4
+    },
+    {
+      "name": "Горячий бутерброд с яйцом и сыром/Egg and cheese hot sandwich",
+      "portion_weight_g": 115,
+      "calories_per_100g": 287,
+      "protein_per_100g": 10.3,
+      "fat_per_100g": 20.6,
+      "carbs_per_100g": 15.2
+    },
+    {
+      "name": "Хот Дог датский/Hot Dog danish",
+      "portion_weight_g": 180,
+      "calories_per_100g": 318,
+      "protein_per_100g": 7.6,
+      "fat_per_100g": 21.6,
+      "carbs_per_100g": 23.3
+    },
+    {
+      "name": "Кесадилья с курицей/Quesadilla with chicken",
+      "portion_weight_g": 110,
+      "calories_per_100g": 186,
+      "protein_per_100g": 9.3,
+      "fat_per_100g": 11.3,
+      "carbs_per_100g": 11.7
+    },
+    {
+      "name": "Филе куриное приготовленное на пару/Steamed chicken fillet",
+      "portion_weight_g": 100,
+      "calories_per_100g": 103,
+      "protein_per_100g": 20.1,
+      "fat_per_100g": 2.4,
+      "carbs_per_100g": 0.3
+    },
+    {
+      "name": "Фасоль стручковая припущенная/Poached French beans",
+      "portion_weight_g": 150,
+      "calories_per_100g": 30,
+      "protein_per_100g": 1.7,
+      "fat_per_100g": 0.8,
+      "carbs_per_100g": 4.2
+    },
+    {
+      "name": "Семга/Mild-cured salmon",
+      "portion_weight_g": 30,
+      "calories_per_100g": 153,
+      "protein_per_100g": 20,
+      "fat_per_100g": 8.1,
+      "carbs_per_100g": null
+    },
+    {
+      "name": "Какао с молоком/Milk cocoa",
+      "portion_weight_g": 200,
+      "calories_per_100g": 94,
+      "protein_per_100g": 4.1,
+      "fat_per_100g": 3.8,
+      "carbs_per_100g": 10.8
+    },
+    {
+      "name": "Чай апельсиновый с корицей/Orange and cinnamon tea",
+      "portion_weight_g": 200,
+      "calories_per_100g": 55,
+      "protein_per_100g": 0.4,
+      "fat_per_100g": 0.1,
+      "carbs_per_100g": 13.2
+    },
+    {
+      "name": "Напиток из вишни/Cherry drink",
+      "portion_weight_g": 200,
+      "calories_per_100g": 46,
+      "protein_per_100g": 0.2,
+      "fat_per_100g": 0,
+      "carbs_per_100g": 11.3
+    },
+    {
+      "name": "Взвар из сухофруктов без сахара/Dried fruit drink (sugar-free)",
+      "portion_weight_g": 200,
+      "calories_per_100g": 19,
+      "protein_per_100g": 0.2,
+      "fat_per_100g": 0,
+      "carbs_per_100g": 4.7
+    },
+    {
+      "name": "Салат из тунца с огурцами, яйцом и айсбергом/Tuna, cucumber and egg salad",
+      "portion_weight_g": 120,
+      "calories_per_100g": 237,
+      "protein_per_100g": 7.7,
+      "fat_per_100g": 22.2,
+      "carbs_per_100g": 1.4
+    },
+    {
+      "name": "Салат из свиной вырезки с перцем с маринованным огурцом и майонезом/Pork, bell pepper and pickles salad with mayonnaise",
+      "portion_weight_g": 120,
+      "calories_per_100g": 211,
+      "protein_per_100g": 4.6,
+      "fat_per_100g": 18.5,
+      "carbs_per_100g": 6.5
+    },
+    {
+      "name": "Салат из свежей тыквы с яблоком и сметаной/Pumpkin and apple salad with sour cream",
+      "portion_weight_g": 120,
+      "calories_per_100g": 74,
+      "protein_per_100g": 1.1,
+      "fat_per_100g": 3.5,
+      "carbs_per_100g": 9.5
+    },
+    {
+      "name": "Салат из морской капусты с кунжутом/Seaweed Salad with Sesame Seeds",
+      "portion_weight_g": 120,
+      "calories_per_100g": 135,
+      "protein_per_100g": 1.5,
+      "fat_per_100g": 11.5,
+      "carbs_per_100g": 6.3
+    },
+    {
+      "name": "Суп-харчо с говядиной/Beef kharcho soup",
+      "portion_weight_g": 250,
+      "calories_per_100g": 60,
+      "protein_per_100g": 2.9,
+      "fat_per_100g": 3.4,
+      "carbs_per_100g": 4.6
+    },
+    {
+      "name": "Суп картофельный с грибами/Mushroom and potato soup",
+      "portion_weight_g": 250,
+      "calories_per_100g": 33,
+      "protein_per_100g": 0.9,
+      "fat_per_100g": 1.8,
+      "carbs_per_100g": 3.3
+    },
+    {
+      "name": "Бульон говяжий/Beef broth",
+      "portion_weight_g": 250,
+      "calories_per_100g": 35,
+      "protein_per_100g": 3.6,
+      "fat_per_100g": 1.2,
+      "carbs_per_100g": 2.6
+    },
+    {
+      "name": "Зразы рыбные, фаршированные зеленым маслом/Fish rolls stuffed with green butter",
+      "portion_weight_g": 100,
+      "calories_per_100g": 238,
+      "protein_per_100g": 9.8,
+      "fat_per_100g": 17.7,
+      "carbs_per_100g": 9.9
+    },
+    {
+      "name": "Бифштекс рубленый с луком фри/Minced meat patty with crisp fried onion",
+      "portion_weight_g": 90,
+      "calories_per_100g": 182,
+      "protein_per_100g": 12,
+      "fat_per_100g": 14.1,
+      "carbs_per_100g": 1.6
+    },
+    {
+      "name": "Куриные ножки Тандури/Spicy Tandoori chicken legs",
+      "portion_weight_g": 150,
+      "calories_per_100g": 216,
+      "protein_per_100g": 15,
+      "fat_per_100g": 17.1,
+      "carbs_per_100g": 0.3
+    },
+    {
+      "name": "Свинина в соусе том ям/Tom Yum pork",
+      "portion_weight_g": 150,
+      "calories_per_100g": 819,
+      "protein_per_100g": 18.6,
+      "fat_per_100g": 81,
+      "carbs_per_100g": 3.9
+    },
+    {
+      "name": "Курица фаршированная яблоками/Chicken stuffed with apples",
+      "portion_weight_g": 180,
+      "calories_per_100g": 229,
+      "protein_per_100g": 13.2,
+      "fat_per_100g": 16.1,
+      "carbs_per_100g": 7.7
+    },
+    {
+      "name": "Филе индейки на пару/Steamed turkey fillet",
+      "portion_weight_g": 100,
+      "calories_per_100g": 108,
+      "protein_per_100g": 25,
+      "fat_per_100g": 0.9,
+      "carbs_per_100g": null
+    },
+    {
+      "name": "Сайда припущенная/Poached pollock",
+      "portion_weight_g": 100,
+      "calories_per_100g": 67,
+      "protein_per_100g": 15.6,
+      "fat_per_100g": 0.4,
+      "carbs_per_100g": 0.2
+    },
+    {
+      "name": "Кус-кус с овощами/Vegetable couscous",
+      "portion_weight_g": 180,
+      "calories_per_100g": 169,
+      "protein_per_100g": 4.3,
+      "fat_per_100g": 5.5,
+      "carbs_per_100g": 25.6
+    },
+    {
+      "name": "Картофель печеный/Roasted potatoes",
+      "portion_weight_g": 150,
+      "calories_per_100g": 152,
+      "protein_per_100g": 3,
+      "fat_per_100g": 3.4,
+      "carbs_per_100g": 27.2
+    },
+    {
+      "name": "Фузилли/Fusilli",
+      "portion_weight_g": 150,
+      "calories_per_100g": 157,
+      "protein_per_100g": 4.5,
+      "fat_per_100g": 2.6,
+      "carbs_per_100g": 29
+    },
+    {
+      "name": "Овощи гриль/Grilled vegetables",
+      "portion_weight_g": 150,
+      "calories_per_100g": 86,
+      "protein_per_100g": 1.3,
+      "fat_per_100g": 6.2,
+      "carbs_per_100g": 6.3
+    },
+    {
+      "name": "Брокколи припущенная /Poached broccoli",
+      "portion_weight_g": 150,
+      "calories_per_100g": 56,
+      "protein_per_100g": 3.9,
+      "fat_per_100g": 2.7,
+      "carbs_per_100g": 3.9
+    },
+    {
+      "name": "Чай пакетированный /Niktea tea (pocket)",
+      "portion_weight_g": 10,
+      "calories_per_100g": 154,
+      "protein_per_100g": 20,
+      "fat_per_100g": 5.1,
+      "carbs_per_100g": 6.9
+    },
+    {
+      "name": "Салат из свежей тыквы с яблоком и сметаной/Pumpkin and apple salad with sour cream",
+      "portion_weight_g": null,
+      "calories_per_100g": null,
+      "protein_per_100g": null,
+      "fat_per_100g": null,
+      "carbs_per_100g": null
+    },
+    {
+      "name": "Салат из морской капусты с кунжутом/Seaweed Salad with Sesame Seeds",
+      "portion_weight_g": null,
+      "calories_per_100g": null,
+      "protein_per_100g": null,
+      "fat_per_100g": null,
+      "carbs_per_100g": null
+    },
+    {
+      "name": "Суп картофельный с грибами/Mushroom and potato soup",
+      "portion_weight_g": null,
+      "calories_per_100g": null,
+      "protein_per_100g": null,
+      "fat_per_100g": null,
+      "carbs_per_100g": null
+    },
+    {
+      "name": "Бульон говяжий/Beef broth",
+      "portion_weight_g": null,
+      "calories_per_100g": null,
+      "protein_per_100g": null,
+      "fat_per_100g": null,
+      "carbs_per_100g": null
+    },
+    {
+      "name": "Куриные ножки Тандури/Spicy Tandoori chicken legs",
+      "portion_weight_g": null,
+      "calories_per_100g": null,
+      "protein_per_100g": null,
+      "fat_per_100g": null,
+      "carbs_per_100g": null
+    },
+    {
+      "name": "Кус-кус с овощами/Vegetable couscous",
+      "portion_weight_g": null,
+      "calories_per_100g": null,
+      "protein_per_100g": null,
+      "fat_per_100g": null,
+      "carbs_per_100g": null
+    },
+    {
+      "name": "Фузилли/Fusilli",
+      "portion_weight_g": null,
+      "calories_per_100g": null,
+      "protein_per_100g": null,
+      "fat_per_100g": null,
+      "carbs_per_100g": null
+    },
+    {
+      "name": "Напиток из вишни/Cherry drink",
+      "portion_weight_g": null,
+      "calories_per_100g": null,
+      "protein_per_100g": null,
+      "fat_per_100g": null,
+      "carbs_per_100g": null
+    },
+    {
+      "name": "Взвар из сухофруктов без сахара/Dried fruit drink (sugar-free)",
+      "portion_weight_g": null,
+      "calories_per_100g": null,
+      "protein_per_100g": null,
+      "fat_per_100g": null,
+      "carbs_per_100g": null
+    },
+    {
+      "name": "Чай пакетированный /Niktea tea (pocket)",
+      "portion_weight_g": null,
+      "calories_per_100g": null,
+      "protein_per_100g": null,
+      "fat_per_100g": null,
+      "carbs_per_100g": null
+    },
+    {
+      "name": "Яичница глазунья/Fried eggs",
+      "portion_weight_g": 80,
+      "calories_per_100g": 177,
+      "protein_per_100g": 11.5,
+      "fat_per_100g": 14.2,
+      "carbs_per_100g": 0.8
+    },
+    {
+      "name": "Ветчина/Ham",
+      "portion_weight_g": 25,
+      "calories_per_100g": 138,
+      "protein_per_100g": 12,
+      "fat_per_100g": 10,
+      "carbs_per_100g": null
+    },
+    {
+      "name": "Сыр/Cheese",
+      "portion_weight_g": 25,
+      "calories_per_100g": 351,
+      "protein_per_100g": 26,
+      "fat_per_100g": 27.4,
+      "carbs_per_100g": null
+    },
+    {
+      "name": "Помидоры/Tomatoes",
+      "portion_weight_g": 50,
+      "calories_per_100g": 21,
+      "protein_per_100g": 1.1,
+      "fat_per_100g": 0.2,
+      "carbs_per_100g": 3.8
+    },
+    {
+      "name": "Перец болгарский/Bell pepper",
+      "portion_weight_g": 30,
+      "calories_per_100g": 26,
+      "protein_per_100g": 1.3,
+      "fat_per_100g": null,
+      "carbs_per_100g": 5.3
+    },
+    {
+      "name": "Грибы жареные/Sauteed mushrooms",
+      "portion_weight_g": 20,
+      "calories_per_100g": 27,
+      "protein_per_100g": 4.3,
+      "fat_per_100g": 1,
+      "carbs_per_100g": 0.1
+    },
+    {
+      "name": "Бекон жареный/Fried bacon",
+      "portion_weight_g": 10,
+      "calories_per_100g": 444,
+      "protein_per_100g": 10,
+      "fat_per_100g": 44,
+      "carbs_per_100g": 2.1
+    },
+    {
+      "name": "Зелень/Dill and parsley",
+      "portion_weight_g": 2,
+      "calories_per_100g": 49,
+      "protein_per_100g": 3.7,
+      "fat_per_100g": 0.4,
+      "carbs_per_100g": 7.6
+    },
+    {
+      "name": "Крэп/Extra crepe",
+      "portion_weight_g": 80,
+      "calories_per_100g": 188,
+      "protein_per_100g": 4.9,
+      "fat_per_100g": 9.6,
+      "carbs_per_100g": 20.6
+    },
+    {
+      "name": "Жюльен куриный/Chicken julienne",
+      "portion_weight_g": 50,
+      "calories_per_100g": 201,
+      "protein_per_100g": 15.3,
+      "fat_per_100g": 14.1,
+      "carbs_per_100g": 3.2
+    },
+    {
+      "name": "Жюльен грибной/Mushroom julienne",
+      "portion_weight_g": 50,
+      "calories_per_100g": 206,
+      "protein_per_100g": 5.7,
+      "fat_per_100g": 18.3,
+      "carbs_per_100g": 4.6
+    },
+    {
+      "name": "Ветчина/Сыр/Ham/cheese",
+      "portion_weight_g": 50,
+      "calories_per_100g": 223,
+      "protein_per_100g": 17.6,
+      "fat_per_100g": 17,
+      "carbs_per_100g": null
+    },
+    {
+      "name": "Фета/Feta",
+      "portion_weight_g": 50,
+      "calories_per_100g": 235,
+      "protein_per_100g": 7.2,
+      "fat_per_100g": 22,
+      "carbs_per_100g": 2
+    },
+    {
+      "name": "Творог/Cottage cheese",
+      "portion_weight_g": 50,
+      "calories_per_100g": 170,
+      "protein_per_100g": 17.6,
+      "fat_per_100g": 8.8,
+      "carbs_per_100g": 4.9
+    },
+    {
+      "name": "Перец болгарский/",
+      "portion_weight_g": 100,
+      "calories_per_100g": 26,
+      "protein_per_100g": 1.3,
+      "fat_per_100g": null,
+      "carbs_per_100g": 5.3
+    },
+    {
+      "name": "Помидоры/",
+      "portion_weight_g": 100,
+      "calories_per_100g": 21,
+      "protein_per_100g": 1.1,
+      "fat_per_100g": 0.2,
+      "carbs_per_100g": 3.8
+    },
+    {
+      "name": "Огурцы/",
+      "portion_weight_g": 100,
+      "calories_per_100g": 14,
+      "protein_per_100g": 0.8,
+      "fat_per_100g": 0.1,
+      "carbs_per_100g": 2.5
+    },
+    {
+      "name": "Айсберг/",
+      "portion_weight_g": 100,
+      "calories_per_100g": 14,
+      "protein_per_100g": 0.9,
+      "fat_per_100g": 0.1,
+      "carbs_per_100g": 2.3
+    },
+    {
+      "name": "Шпинат/",
+      "portion_weight_g": 100,
+      "calories_per_100g": 22,
+      "protein_per_100g": 2.9,
+      "fat_per_100g": 0.3,
+      "carbs_per_100g": 2
+    },
+    {
+      "name": "Фетаки/",
+      "portion_weight_g": 100,
+      "calories_per_100g": 235,
+      "protein_per_100g": 7.2,
+      "fat_per_100g": 22,
+      "carbs_per_100g": 2
+    },
+    {
+      "name": "Ананасы/",
+      "portion_weight_g": 100,
+      "calories_per_100g": 49,
+      "protein_per_100g": 0.4,
+      "fat_per_100g": 0.2,
+      "carbs_per_100g": 11.5
+    },
+    {
+      "name": "Грейпфруты/",
+      "portion_weight_g": 100,
+      "calories_per_100g": 31,
+      "protein_per_100g": 0.7,
+      "fat_per_100g": 0.2,
+      "carbs_per_100g": 6.5
+    },
+    {
+      "name": "Киви/",
+      "portion_weight_g": 100,
+      "calories_per_100g": 39,
+      "protein_per_100g": 0.8,
+      "fat_per_100g": 0.4,
+      "carbs_per_100g": 8.1
+    },
+    {
+      "name": "Греческий салат с гигантскими маслинами сыром и орегано/Greek salad with large black olives, cheese and oregano",
+      "portion_weight_g": 150,
+      "calories_per_100g": 144,
+      "protein_per_100g": 2.2,
+      "fat_per_100g": 13.2,
+      "carbs_per_100g": 4
+    },
+    {
+      "name": "Куриное филе Су-вид/Turkey broth with egg",
+      "portion_weight_g": 100,
+      "calories_per_100g": 141,
+      "protein_per_100g": 23.2,
+      "fat_per_100g": 5.3,
+      "carbs_per_100g": 0.3
+    },
+    {
+      "name": "Судак маринованный в соевом соусе Су-вид/Su-view pickled pike perch in soy sauce",
+      "portion_weight_g": 100,
+      "calories_per_100g": 96,
+      "protein_per_100g": 20.5,
+      "fat_per_100g": 1,
+      "carbs_per_100g": 1.4
+    },
+    {
+      "name": "Цукини на гриле/Grilled zucchini half",
+      "portion_weight_g": 150,
+      "calories_per_100g": 60,
+      "protein_per_100g": 1,
+      "fat_per_100g": 3.4,
+      "carbs_per_100g": 6.4
+    },
+    {
+      "name": "Батат запеченый с прованскими травами/Batat potatoes baked with Provencal herbs",
+      "portion_weight_g": 150,
+      "calories_per_100g": 77,
+      "protein_per_100g": 2,
+      "fat_per_100g": 0.1,
+      "carbs_per_100g": 17
+    },
+    {
+      "name": "Стейк из красной капусты с апельсиновой заправкой/Red cabbage steak with orange dressing",
+      "portion_weight_g": 180,
+      "calories_per_100g": 173,
+      "protein_per_100g": 0.6,
+      "fat_per_100g": 17.1,
+      "carbs_per_100g": 4.3
+    }
+  ]
+}

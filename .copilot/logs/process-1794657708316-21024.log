@@ -1,0 +1,70 @@
+2026-11-14T12:01:48.319Z [INFO] Native runtime logging initialized
+2026-11-14T12:01:48.350Z [WARNING] [rust:standalone_host::standalone::transport] Unable to locate runtime-bundled skills beside the native runtime
+2026-11-14T12:01:50.549Z [WARNING] [rust:model_engine::model::http] Model HTTP request failed {"stage":"model_http","http_status":403,"request_id":"3869:2059D:212B3E7:2530F39:6AF84DAE"}
+2026-11-14T12:01:51.508Z [WARNING] [rust:model_engine::model::http] Model HTTP request failed {"stage":"model_http","http_status":403,"request_id":"3869:2059D:212B863:2531434:6AF84DAE"}
+2026-11-14T12:01:52.929Z [WARNING] [rust:model_engine::model::http] Model HTTP request failed {"stage":"model_http","http_status":403,"request_id":"3869:2059D:212BEBE:2531B28:6AF84DAF"}
+2026-11-14T12:01:58.978Z [INFO] [rust:rt_managed_settings_ingest] [managedSettings] device MDM: no policy present on this device
+2026-11-14T12:01:58.978Z [INFO] [rust:rt_managed_settings_ingest] [managedSettings] server policy: none for this account (404: no configured policy) from https://github.com
+2026-11-14T12:01:58.978Z [INFO] [rust:rt_managed_settings_ingest] [managedSettings] effective policy resolved: source=none, bypassDisabled=false, serverFetchFailed=false, policyHelperConfigured=false, policyHelperAuthority=none, policyHelperFailed=false, policyHelperFailClosed=false, policyHelperContributedSandbox=false
+2026-11-14T12:03:01.373Z [INFO] [rust:rt_managed_settings_ingest] [managedSettings] device MDM: no policy present on this device
+2026-11-14T12:03:01.373Z [INFO] [rust:rt_managed_settings_ingest] [managedSettings] confirmed no policy served from fresh cache (age 62396ms) from https://github.com
+2026-11-14T12:03:01.373Z [INFO] [rust:rt_managed_settings_ingest] [managedSettings] effective policy resolved: source=none, bypassDisabled=false, serverFetchFailed=false, policyHelperConfigured=false, policyHelperAuthority=none, policyHelperFailed=false, policyHelperFailClosed=false, policyHelperContributedSandbox=false
+2026-11-14T12:03:01.509Z [INFO] [rust:rt_managed_settings_ingest] [managedSettings] device MDM: no policy present on this device
+2026-11-14T12:03:01.509Z [INFO] [rust:rt_managed_settings_ingest] [managedSettings] confirmed no policy served from fresh cache (age 62532ms) from https://github.com
+2026-11-14T12:03:01.509Z [INFO] [rust:rt_managed_settings_ingest] [managedSettings] effective policy resolved: source=none, bypassDisabled=false, serverFetchFailed=false, policyHelperConfigured=false, policyHelperAuthority=none, policyHelperFailed=false, policyHelperFailClosed=false, policyHelperContributedSandbox=false
+2026-11-14T12:03:01.768Z [INFO] [rust:rt_managed_settings_ingest] [managedSettings] device MDM: no policy present on this device
+2026-11-14T12:03:01.768Z [INFO] [rust:rt_managed_settings_ingest] [managedSettings] confirmed no policy served from fresh cache (age 62791ms) from https://github.com
+2026-11-14T12:03:01.768Z [INFO] [rust:rt_managed_settings_ingest] [managedSettings] effective policy resolved: source=none, bypassDisabled=false, serverFetchFailed=false, policyHelperConfigured=false, policyHelperAuthority=none, policyHelperFailed=false, policyHelperFailClosed=false, policyHelperContributedSandbox=false
+2026-11-14T12:03:01.774Z [INFO] [rust:rt_managed_settings_ingest] [managedSettings] device MDM: no policy present on this device
+2026-11-14T12:03:01.774Z [INFO] [rust:rt_managed_settings_ingest] [managedSettings] server policy fetch skipped: no authenticated GitHub host available
+2026-11-14T12:03:01.774Z [INFO] [rust:rt_managed_settings_ingest] [managedSettings] effective policy resolved: source=none, bypassDisabled=false, serverFetchFailed=false, policyHelperConfigured=false, policyHelperAuthority=none, policyHelperFailed=false, policyHelperFailClosed=false, policyHelperContributedSandbox=false
+2026-11-14T12:03:01.777Z [INFO] [rust:rt_managed_settings_ingest] [managedSettings] device MDM: no policy present on this device
+2026-11-14T12:03:01.777Z [INFO] [rust:rt_managed_settings_ingest] [managedSettings] server policy fetch skipped: no authenticated GitHub host available
+2026-11-14T12:03:01.777Z [INFO] [rust:rt_managed_settings_ingest] [managedSettings] effective policy resolved: source=none, bypassDisabled=false, serverFetchFailed=false, policyHelperConfigured=false, policyHelperAuthority=none, policyHelperFailed=false, policyHelperFailClosed=false, policyHelperContributedSandbox=false
+2026-11-14T12:03:01.782Z [INFO] [rust:rt_managed_settings_ingest] [managedSettings] device MDM: no policy present on this device
+2026-11-14T12:03:01.782Z [INFO] [rust:rt_managed_settings_ingest] [managedSettings] server policy fetch skipped: no authenticated GitHub host available
+2026-11-14T12:03:01.782Z [INFO] [rust:rt_managed_settings_ingest] [managedSettings] effective policy resolved: source=none, bypassDisabled=false, serverFetchFailed=false, policyHelperConfigured=false, policyHelperAuthority=none, policyHelperFailed=false, policyHelperFailClosed=false, policyHelperContributedSandbox=false
+2026-11-14T12:03:01.873Z [INFO] [rust:permission_configuration_runtime::implementation] [managedSettings] applied: no bypass restriction in force (managed policy present but does not disable bypass)
+2026-11-14T12:03:01.891Z [INFO] [rust:permission_configuration_runtime::implementation] [managedSettings] applied: no bypass restriction in force (managed policy absent)
+2026-11-14T12:03:01.896Z [INFO] [rust:native_managed_settings::implementation] [managedSettings] self-fetch starting for account https://github.com/Konstantin-Khoroshilov
+2026-11-14T12:03:01.897Z [WARNING] [rust:copilot_runtime::session::api_session_options_update] Failed to reload managed hooks after enabling managed settings {"error":"no hook session for session id ******"}
+2026-11-14T12:03:01.898Z [INFO] [rust:rt_managed_settings_ingest] [managedSettings] device MDM: no policy present on this device
+2026-11-14T12:03:01.898Z [INFO] [rust:rt_managed_settings_ingest] [managedSettings] confirmed no policy served from fresh cache (age 62921ms) from https://github.com
+2026-11-14T12:03:01.898Z [INFO] [rust:rt_managed_settings_ingest] [managedSettings] effective policy resolved: source=none, bypassDisabled=false, serverFetchFailed=false, policyHelperConfigured=false, policyHelperAuthority=none, policyHelperFailed=false, policyHelperFailClosed=false, policyHelperContributedSandbox=false
+2026-11-14T12:03:01.900Z [INFO] [rust:permission_configuration_runtime::implementation] [managedSettings] applied: no bypass restriction in force (managed policy present but does not disable bypass)
+2026-11-14T12:03:01.918Z [INFO] [rust:native_managed_settings::implementation] [managedSettings] self-fetch complete for https://github.com/Konstantin-Khoroshilov: bypassDisabled=false, serverFetchFailed=false, serverResolution=FreshCache, serverRetryableFailure=false, deviceLoadFailed=false
+2026-11-14T12:03:01.919Z [WARNING] [rust:events_engine::host_delivery] event was not delivered to its registered session host {"error":"GenericFailure, no session host is registered for session ******"}
+2026-11-14T12:03:01.966Z [INFO] [rust:rt_tgrep] tgrep status changed {"status":"server-not-running"}
+2026-11-14T12:03:02.059Z [INFO] SDK session attached: sha256:b9738e0c6186843c4df872abbb90bbfbe7cc42832599e1c8e9a326e4d75b12d3
+2026-11-14T12:03:02.078Z [INFO] [rust:otel] OTel session policy applied
+2026-11-14T12:03:02.094Z [INFO] [rust:rt_tgrep] tgrep status changed {"status":"server-not-running"}
+2026-11-14T12:03:03.346Z [INFO] [rust:rt_managed_settings_ingest] [managedSettings] device MDM: no policy present on this device
+2026-11-14T12:03:03.346Z [INFO] [rust:rt_managed_settings_ingest] [managedSettings] confirmed no policy served from fresh cache (age 64370ms) from https://github.com
+2026-11-14T12:03:03.347Z [INFO] [rust:rt_managed_settings_ingest] [managedSettings] effective policy resolved: source=none, bypassDisabled=false, serverFetchFailed=false, policyHelperConfigured=false, policyHelperAuthority=none, policyHelperFailed=false, policyHelperFailClosed=false, policyHelperContributedSandbox=false
+2026-11-14T12:03:03.353Z [INFO] [rust:rt_managed_settings_ingest] [managedSettings] device MDM: no policy present on this device
+2026-11-14T12:03:03.353Z [INFO] [rust:rt_managed_settings_ingest] [managedSettings] confirmed no policy served from fresh cache (age 64376ms) from https://github.com
+2026-11-14T12:03:03.353Z [INFO] [rust:rt_managed_settings_ingest] [managedSettings] effective policy resolved: source=none, bypassDisabled=false, serverFetchFailed=false, policyHelperConfigured=false, policyHelperAuthority=none, policyHelperFailed=false, policyHelperFailClosed=false, policyHelperContributedSandbox=false
+2026-11-14T12:03:03.360Z [INFO] [rust:permission_configuration_runtime::implementation] [managedSettings] applied: no bypass restriction in force (managed policy present but does not disable bypass)
+2026-11-14T12:03:03.367Z [INFO] [rust:permission_configuration_runtime::implementation] [managedSettings] applied: no bypass restriction in force (managed policy absent)
+2026-11-14T12:03:03.368Z [INFO] [rust:native_managed_settings::implementation] [managedSettings] self-fetch starting for account https://github.com/Konstantin-Khoroshilov
+2026-11-14T12:03:03.368Z [WARNING] [rust:copilot_runtime::session::api_session_options_update] Failed to reload managed hooks after enabling managed settings {"error":"no hook session for session id ******"}
+2026-11-14T12:03:03.368Z [INFO] [rust:rt_managed_settings_ingest] [managedSettings] device MDM: no policy present on this device
+2026-11-14T12:03:03.368Z [INFO] [rust:rt_managed_settings_ingest] [managedSettings] confirmed no policy served from fresh cache (age 64392ms) from https://github.com
+2026-11-14T12:03:03.368Z [INFO] [rust:rt_managed_settings_ingest] [managedSettings] effective policy resolved: source=none, bypassDisabled=false, serverFetchFailed=false, policyHelperConfigured=false, policyHelperAuthority=none, policyHelperFailed=false, policyHelperFailClosed=false, policyHelperContributedSandbox=false
+2026-11-14T12:03:03.369Z [INFO] [rust:permission_configuration_runtime::implementation] [managedSettings] applied: no bypass restriction in force (managed policy present but does not disable bypass)
+2026-11-14T12:03:03.369Z [INFO] [rust:rt_tgrep] tgrep status changed {"status":"server-not-running"}
+2026-11-14T12:03:03.369Z [INFO] [rust:native_managed_settings::implementation] [managedSettings] self-fetch complete for https://github.com/Konstantin-Khoroshilov: bypassDisabled=false, serverFetchFailed=false, serverResolution=FreshCache, serverRetryableFailure=false, deviceLoadFailed=false
+2026-11-14T12:03:03.369Z [WARNING] [rust:events_engine::host_delivery] event was not delivered to its registered session host {"error":"GenericFailure, no session host is registered for session ******"}
+2026-11-14T12:03:03.440Z [INFO] SDK session attached: sha256:68ac7a1ff910012c62c00d8282818bcc02d1a517546a96e6063418ae75c27e48
+2026-11-14T12:03:03.453Z [INFO] [rust:otel] OTel session policy applied
+2026-11-14T12:03:03.468Z [INFO] [rust:rt_managed_settings_ingest] [managedSettings] device MDM: no policy present on this device
+2026-11-14T12:03:03.468Z [INFO] [rust:rt_managed_settings_ingest] [managedSettings] confirmed no policy served from fresh cache (age 64492ms) from https://github.com
+2026-11-14T12:03:03.468Z [INFO] [rust:rt_managed_settings_ingest] [managedSettings] effective policy resolved: source=none, bypassDisabled=false, serverFetchFailed=false, policyHelperConfigured=false, policyHelperAuthority=none, policyHelperFailed=false, policyHelperFailClosed=false, policyHelperContributedSandbox=false
+2026-11-14T12:05:25.650Z [INFO] [rust:rt_managed_settings_ingest] [managedSettings] device MDM: no policy present on this device
+2026-11-14T12:05:25.650Z [INFO] [rust:rt_managed_settings_ingest] [managedSettings] confirmed no policy served from fresh cache (age 206672ms) from https://github.com
+2026-11-14T12:05:25.650Z [INFO] [rust:rt_managed_settings_ingest] [managedSettings] device MDM: no policy present on this device
+2026-11-14T12:05:25.650Z [INFO] [rust:rt_managed_settings_ingest] [managedSettings] effective policy resolved: source=none, bypassDisabled=false, serverFetchFailed=false, policyHelperConfigured=false, policyHelperAuthority=none, policyHelperFailed=false, policyHelperFailClosed=false, policyHelperContributedSandbox=false
+2026-11-14T12:05:25.650Z [INFO] [rust:rt_managed_settings_ingest] [managedSettings] confirmed no policy served from fresh cache (age 206672ms) from https://github.com
+2026-11-14T12:05:25.650Z [INFO] [rust:rt_managed_settings_ingest] [managedSettings] effective policy resolved: source=none, bypassDisabled=false, serverFetchFailed=false, policyHelperConfigured=false, policyHelperAuthority=none, policyHelperFailed=false, policyHelperFailClosed=false, policyHelperContributedSandbox=false
+2026-11-14T12:05:25.824Z [INFO] [rust:copilot_runtime::session::registry] Closed interrupted sub-agent records on resume {"closed":0,"dangling":0}
+2026-11-14T12:05:25.852Z [INFO] [rust:copilot_runtime::session::registry] Closed interrupted sub-agent records on resume {"closed":0,"dangling":0}

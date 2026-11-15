@@ -1,0 +1,440 @@
+{
+  "source": "Freshvote",
+  "source_image": "menu.jpg",
+  "recognized_at": "2026-11-03T19:09:33.945Z",
+  "generated_at": "2026-11-03T19:34:13.331Z",
+  "total_dishes": 78,
+  "incomplete_count": 18,
+  "dishes": [
+    {
+      "original_index": 4,
+      "name": "Сосиска отварная/Boiled sausage",
+      "portion_weight_g": 65,
+      "calories_per_100g": 205,
+      "protein_per_100g": 9,
+      "fat_per_100g": 18.8,
+      "carbs_per_100g": null,
+      "missing_fields": [
+        {
+          "field": "carbs_per_100g",
+          "label": "углеводы"
+        }
+      ]
+    },
+    {
+      "original_index": 14,
+      "name": "Семга/Mild-cured salmon",
+      "portion_weight_g": 30,
+      "calories_per_100g": 153,
+      "protein_per_100g": 20,
+      "fat_per_100g": 8.1,
+      "carbs_per_100g": null,
+      "missing_fields": [
+        {
+          "field": "carbs_per_100g",
+          "label": "углеводы"
+        }
+      ]
+    },
+    {
+      "original_index": 31,
+      "name": "Филе индейки на пару/Steamed turkey fillet",
+      "portion_weight_g": 100,
+      "calories_per_100g": 108,
+      "protein_per_100g": 25,
+      "fat_per_100g": 0.9,
+      "carbs_per_100g": null,
+      "missing_fields": [
+        {
+          "field": "carbs_per_100g",
+          "label": "углеводы"
+        }
+      ]
+    },
+    {
+      "original_index": 39,
+      "name": "Салат из свежей тыквы с яблоком и сметаной/Pumpkin and apple salad with sour cream",
+      "portion_weight_g": null,
+      "calories_per_100g": null,
+      "protein_per_100g": null,
+      "fat_per_100g": null,
+      "carbs_per_100g": null,
+      "missing_fields": [
+        {
+          "field": "portion_weight_g",
+          "label": "вес порции"
+        },
+        {
+          "field": "calories_per_100g",
+          "label": "калории"
+        },
+        {
+          "field": "protein_per_100g",
+          "label": "белки"
+        },
+        {
+          "field": "fat_per_100g",
+          "label": "жиры"
+        },
+        {
+          "field": "carbs_per_100g",
+          "label": "углеводы"
+        }
+      ]
+    },
+    {
+      "original_index": 40,
+      "name": "Салат из морской капусты с кунжутом/Seaweed Salad with Sesame Seeds",
+      "portion_weight_g": null,
+      "calories_per_100g": null,
+      "protein_per_100g": null,
+      "fat_per_100g": null,
+      "carbs_per_100g": null,
+      "missing_fields": [
+        {
+          "field": "portion_weight_g",
+          "label": "вес порции"
+        },
+        {
+          "field": "calories_per_100g",
+          "label": "калории"
+        },
+        {
+          "field": "protein_per_100g",
+          "label": "белки"
+        },
+        {
+          "field": "fat_per_100g",
+          "label": "жиры"
+        },
+        {
+          "field": "carbs_per_100g",
+          "label": "углеводы"
+        }
+      ]
+    },
+    {
+      "original_index": 41,
+      "name": "Суп картофельный с грибами/Mushroom and potato soup",
+      "portion_weight_g": null,
+      "calories_per_100g": null,
+      "protein_per_100g": null,
+      "fat_per_100g": null,
+      "carbs_per_100g": null,
+      "missing_fields": [
+        {
+          "field": "portion_weight_g",
+          "label": "вес порции"
+        },
+        {
+          "field": "calories_per_100g",
+          "label": "калории"
+        },
+        {
+          "field": "protein_per_100g",
+          "label": "белки"
+        },
+        {
+          "field": "fat_per_100g",
+          "label": "жиры"
+        },
+        {
+          "field": "carbs_per_100g",
+          "label": "углеводы"
+        }
+      ]
+    },
+    {
+      "original_index": 42,
+      "name": "Бульон говяжий/Beef broth",
+      "portion_weight_g": null,
+      "calories_per_100g": null,
+      "protein_per_100g": null,
+      "fat_per_100g": null,
+      "carbs_per_100g": null,
+      "missing_fields": [
+        {
+          "field": "portion_weight_g",
+          "label": "вес порции"
+        },
+        {
+          "field": "calories_per_100g",
+          "label": "калории"
+        },
+        {
+          "field": "protein_per_100g",
+          "label": "белки"
+        },
+        {
+          "field": "fat_per_100g",
+          "label": "жиры"
+        },
+        {
+          "field": "carbs_per_100g",
+          "label": "углеводы"
+        }
+      ]
+    },
+    {
+      "original_index": 43,
+      "name": "Куриные ножки Тандури/Spicy Tandoori chicken legs",
+      "portion_weight_g": null,
+      "calories_per_100g": null,
+      "protein_per_100g": null,
+      "fat_per_100g": null,
+      "carbs_per_100g": null,
+      "missing_fields": [
+        {
+          "field": "portion_weight_g",
+          "label": "вес порции"
+        },
+        {
+          "field": "calories_per_100g",
+          "label": "калории"
+        },
+        {
+          "field": "protein_per_100g",
+          "label": "белки"
+        },
+        {
+          "field": "fat_per_100g",
+          "label": "жиры"
+        },
+        {
+          "field": "carbs_per_100g",
+          "label": "углеводы"
+        }
+      ]
+    },
+    {
+      "original_index": 44,
+      "name": "Кус-кус с овощами/Vegetable couscous",
+      "portion_weight_g": null,
+      "calories_per_100g": null,
+      "protein_per_100g": null,
+      "fat_per_100g": null,
+      "carbs_per_100g": null,
+      "missing_fields": [
+        {
+          "field": "portion_weight_g",
+          "label": "вес порции"
+        },
+        {
+          "field": "calories_per_100g",
+          "label": "калории"
+        },
+        {
+          "field": "protein_per_100g",
+          "label": "белки"
+        },
+        {
+          "field": "fat_per_100g",
+          "label": "жиры"
+        },
+        {
+          "field": "carbs_per_100g",
+          "label": "углеводы"
+        }
+      ]
+    },
+    {
+      "original_index": 45,
+      "name": "Фузилли/Fusilli",
+      "portion_weight_g": null,
+      "calories_per_100g": null,
+      "protein_per_100g": null,
+      "fat_per_100g": null,
+      "carbs_per_100g": null,
+      "missing_fields": [
+        {
+          "field": "portion_weight_g",
+          "label": "вес порции"
+        },
+        {
+          "field": "calories_per_100g",
+          "label": "калории"
+        },
+        {
+          "field": "protein_per_100g",
+          "label": "белки"
+        },
+        {
+          "field": "fat_per_100g",
+          "label": "жиры"
+        },
+        {
+          "field": "carbs_per_100g",
+          "label": "углеводы"
+        }
+      ]
+    },
+    {
+      "original_index": 46,
+      "name": "Напиток из вишни/Cherry drink",
+      "portion_weight_g": null,
+      "calories_per_100g": null,
+      "protein_per_100g": null,
+      "fat_per_100g": null,
+      "carbs_per_100g": null,
+      "missing_fields": [
+        {
+          "field": "portion_weight_g",
+          "label": "вес порции"
+        },
+        {
+          "field": "calories_per_100g",
+          "label": "калории"
+        },
+        {
+          "field": "protein_per_100g",
+          "label": "белки"
+        },
+        {
+          "field": "fat_per_100g",
+          "label": "жиры"
+        },
+        {
+          "field": "carbs_per_100g",
+          "label": "углеводы"
+        }
+      ]
+    },
+    {
+      "original_index": 47,
+      "name": "Взвар из сухофруктов без сахара/Dried fruit drink (sugar-free)",
+      "portion_weight_g": null,
+      "calories_per_100g": null,
+      "protein_per_100g": null,
+      "fat_per_100g": null,
+      "carbs_per_100g": null,
+      "missing_fields": [
+        {
+          "field": "portion_weight_g",
+          "label": "вес порции"
+        },
+        {
+          "field": "calories_per_100g",
+          "label": "калории"
+        },
+        {
+          "field": "protein_per_100g",
+          "label": "белки"
+        },
+        {
+          "field": "fat_per_100g",
+          "label": "жиры"
+        },
+        {
+          "field": "carbs_per_100g",
+          "label": "углеводы"
+        }
+      ]
+    },
+    {
+      "original_index": 48,
+      "name": "Чай пакетированный /Niktea tea (pocket)",
+      "portion_weight_g": null,
+      "calories_per_100g": null,
+      "protein_per_100g": null,
+      "fat_per_100g": null,
+      "carbs_per_100g": null,
+      "missing_fields": [
+        {
+          "field": "portion_weight_g",
+          "label": "вес порции"
+        },
+        {
+          "field": "calories_per_100g",
+          "label": "калории"
+        },
+        {
+          "field": "protein_per_100g",
+          "label": "белки"
+        },
+        {
+          "field": "fat_per_100g",
+          "label": "жиры"
+        },
+        {
+          "field": "carbs_per_100g",
+          "label": "углеводы"
+        }
+      ]
+    },
+    {
+      "original_index": 50,
+      "name": "Ветчина/Ham",
+      "portion_weight_g": 25,
+      "calories_per_100g": 138,
+      "protein_per_100g": 12,
+      "fat_per_100g": 10,
+      "carbs_per_100g": null,
+      "missing_fields": [
+        {
+          "field": "carbs_per_100g",
+          "label": "углеводы"
+        }
+      ]
+    },
+    {
+      "original_index": 51,
+      "name": "Сыр/Cheese",
+      "portion_weight_g": 25,
+      "calories_per_100g": 351,
+      "protein_per_100g": 26,
+      "fat_per_100g": 27.4,
+      "carbs_per_100g": null,
+      "missing_fields": [
+        {
+          "field": "carbs_per_100g",
+          "label": "углеводы"
+        }
+      ]
+    },
+    {
+      "original_index": 53,
+      "name": "Перец болгарский/Bell pepper",
+      "portion_weight_g": 30,
+      "calories_per_100g": 26,
+      "protein_per_100g": 1.3,
+      "fat_per_100g": null,
+      "carbs_per_100g": 5.3,
+      "missing_fields": [
+        {
+          "field": "fat_per_100g",
+          "label": "жиры"
+        }
+      ]
+    },
+    {
+      "original_index": 60,
+      "name": "Ветчина/Сыр/Ham/cheese",
+      "portion_weight_g": 50,
+      "calories_per_100g": 223,
+      "protein_per_100g": 17.6,
+      "fat_per_100g": 17,
+      "carbs_per_100g": null,
+      "missing_fields": [
+        {
+          "field": "carbs_per_100g",
+          "label": "углеводы"
+        }
+      ]
+    },
+    {
+      "original_index": 63,
+      "name": "Перец болгарский/",
+      "portion_weight_g": 100,
+      "calories_per_100g": 26,
+      "protein_per_100g": 1.3,
+      "fat_per_100g": null,
+      "carbs_per_100g": 5.3,
+      "missing_fields": [
+        {
+          "field": "fat_per_100g",
+          "label": "жиры"
+        }
+      ]
+    }
+  ]
+}
